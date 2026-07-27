@@ -349,6 +349,20 @@
   }
   button.submit:hover{ filter:brightness(1.08); }
   button.submit:active{ transform:scale(0.98); }
+  .success-banner{
+  display:none;
+  align-items:center;
+  gap:10px;
+  background:#F1E2B8;
+  border:1px solid var(--teal);
+  color:var(--teal-deep);
+  border-radius:10px;
+  padding:12px 16px;
+  font-size:13.5px;
+  font-weight:600;
+  margin-bottom:24px;
+}
+.success-banner.active{ display:flex; }
 
   footer{
     max-width:900px;
@@ -402,7 +416,7 @@
 </header>
 
 <div class="shell">
-
+<div id="successBanner" class="success-banner">✅ Evaluation submitted — this form has been cleared so you can submit another.</div>
   <!-- INTAKE -->
   <div class="card">
     <div class="intake-title">
@@ -815,6 +829,30 @@
     }
     return answers;
   }
+  function resetFormAfterSubmit(){
+  var roleSelect = document.getElementById('role');
+  roleSelect.value = '';
+  showRole('');
+
+  var branch = document.getElementById('branch').value;
+  populateEmployees(branch, '');
+
+  document.querySelectorAll('.rate input[type="radio"]:checked').forEach(function(input){
+    input.checked = false;
+  });
+
+  document.querySelectorAll('textarea').forEach(function(ta){
+    ta.value = '';
+  });
+
+  var banner = document.getElementById('successBanner');
+  banner.classList.add('active');
+  setTimeout(function(){
+    banner.classList.remove('active');
+  }, 6000);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
   function submitEvaluation(){
     var branch = document.getElementById('branch').value;
@@ -869,11 +907,11 @@
       body: JSON.stringify(payload)
     })
     .then(function(res){
-      if(!res.ok) throw new Error('Server responded with ' + res.status);
-      alert('Evaluation submitted. Thank you!');
-      btn.textContent = 'Submit Evaluation →';
-      btn.disabled = false;
-    })
+  if(!res.ok) throw new Error('Server responded with ' + res.status);
+  btn.textContent = 'Submit Evaluation →';
+  btn.disabled = false;
+  resetFormAfterSubmit();
+})
     .catch(function(err){
       alert('Something went wrong sending this evaluation. Please try again.\n(' + err.message + ')');
       btn.textContent = 'Submit Evaluation →';
