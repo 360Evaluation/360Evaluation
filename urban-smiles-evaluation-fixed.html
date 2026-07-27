@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Smiles — 360° Structured Evaluation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2B2013;
+    --teal:#B8892E;
+    --teal-deep:#8F6A1F;
+    --mist:#FBF6EA;
+    --paper:#FFFFFF;
+    --slate:#8A7A5C;
+    --line:#EBDFBE;
+    --coral:#C97A2E;
+    --amber:#D6A339;
+    --gold-soft:#F1E2B8;
+    --radius:14px;
+    --shadow: 0 1px 2px rgba(43,32,19,0.05), 0 8px 24px rgba(43,32,19,0.08);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  html{ overflow-x:hidden; }
+  body{
+    background:var(--mist);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:80px;
+    overflow-x:hidden;
+    width:100%;
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{ font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; }
+
+  /* ---------- Header ---------- */
+  header.top{
+    background:
+      linear-gradient(120deg, rgba(255,255,255,0) 40%, rgba(255,244,214,0.55) 50%, rgba(255,255,255,0) 60%),
+      linear-gradient(135deg,#6E4E12 0%,#B8892E 32%,#F0C766 52%,#C6941F 68%,#7A5A18 100%);
+    background-size: 220% 220%, 100% 100%;
+    background-position: 0% 0%, 0% 0%;
+    animation: goldSheen 7s ease-in-out infinite;
+    color:#fff;
+    padding:32px 24px 64px;
+    position:relative;
+    overflow:hidden;
+    width:100%;
+  }
+  @keyframes goldSheen{
+    0%   { background-position: -40% -40%, 0% 0%; }
+    50%  { background-position: 140% 140%, 0% 0%; }
+    100% { background-position: -40% -40%, 0% 0%; }
+  }
+  .logo-row{
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:26px;
+  }
+  .logo-row img{
+    height:44px;
+    width:auto;
+    max-width:100%;
+    display:block;
+    filter:brightness(0) invert(1);
+  }
+  header.top::before{
+    content:"";
+    position:absolute;
+    right:-80px; top:-80px;
+    width:320px; height:320px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,0.22);
+    box-shadow: 0 0 40px rgba(255,230,170,0.25);
+    pointer-events:none;
+  }
+  header.top::after{
+    content:"";
+    position:absolute;
+    right:20px; bottom:-140px;
+    width:280px; height:280px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,0.14);
+    pointer-events:none;
+  }
+  .top-inner{
+    max-width:900px;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    background:rgba(255,255,255,0.16);
+    border:1px solid rgba(255,241,204,0.45);
+    padding:6px 14px;
+    border-radius:100px;
+    margin-bottom:22px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:#FFF3D0; box-shadow:0 0 8px 2px rgba(255,235,180,0.9); }
+  header.top h1{
+    font-size:clamp(30px,4vw,44px);
+    font-weight:600;
+    margin:0 0 12px;
+    max-width:640px;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.12), 0 0 26px rgba(255,232,180,0.35);
+  }
+  header.top p.lead{
+    font-size:16px;
+    max-width:560px;
+    color:rgba(255,255,255,0.9);
+    margin:0;
+  }
+
+  /* ---------- Shell / card ---------- */
+  .shell{
+    max-width:900px;
+    margin:-42px auto 0;
+    padding:0 24px;
+    position:relative;
+    z-index:3;
+    width:100%;
+  }
+  .card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    border:1px solid var(--line);
+    padding:32px;
+    margin-bottom:24px;
+    max-width:100%;
+    overflow:hidden;
+  }
+
+  /* ---------- Scale legend ---------- */
+  .legend{
+    display:flex;
+    gap:0;
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    margin-top:18px;
+  }
+  .legend .seg{
+    flex:1;
+    padding:12px 8px;
+    text-align:center;
+    font-size:12px;
+    border-right:1px solid var(--line);
+  }
+  .legend .seg:last-child{border-right:none;}
+  .legend .num{ font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600; display:block; margin-bottom:2px;}
+  .legend .seg:nth-child(1){ background:#FDEDE8; color:#B4472B;}
+  .legend .seg:nth-child(2){ background:#FCF3E7; color:#9B7423;}
+  .legend .seg:nth-child(3){ background:#FAF3DC; color:#8A7423;}
+  .legend .seg:nth-child(4){ background:#F6EAC4; color:#8F6E1F;}
+  .legend .seg:nth-child(5){ background:#F1E2B8; color:#7A5A18;}
+
+  /* ---------- Intake grid ---------- */
+  .intake-title{
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:18px;
+  }
+  .step-mark{
+    width:26px;height:26px;border-radius:8px;
+    background:var(--ink); color:#fff;
+    font-family:'IBM Plex Mono',monospace; font-size:12px;
+    display:flex; align-items:center; justify-content:center;
+    flex:none;
+  }
+  .intake-title h2{ font-size:19px; margin:0; }
+  .intake-title span.sub{ display:block; font-size:12.5px; color:var(--slate); font-weight:400; margin-top:2px; font-family:'Inter',sans-serif;}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+  }
+  .field{ display:flex; flex-direction:column; gap:6px; min-width:0; }
+  .field.full{ grid-column:1 / -1; }
+  .field label{
+    font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--slate);
+  }
+  .field input, .field select{
+    border:1.5px solid var(--line);
+    border-radius:9px;
+    padding:11px 12px;
+    font-size:14.5px;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:#fff;
+    transition:border-color .15s ease, box-shadow .15s ease;
+    width:100%;
+    max-width:100%;
+  }
+  .field input:focus, .field select:focus{
+    outline:none;
+    border-color:var(--teal);
+    box-shadow:0 0 0 3px rgba(184,137,46,0.18);
+  }
+  .anon-note{
+    margin-top:16px;
+    display:flex; gap:10px;
+    background:var(--mist);
+    border:1px dashed var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:13px;
+    color:var(--slate);
+  }
+
+  /* ---------- Section (role) ---------- */
+  .role-section{ display:none; }
+  .role-section.active{ display:block; }
+
+  .section-head{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .section-head h2{ font-size:20px; margin:0; }
+  .role-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--teal-deep);
+    background:var(--mist);
+    border:1px solid var(--line);
+    padding:5px 10px;
+    border-radius:100px;
+    white-space:nowrap;
+  }
+  .group-label{
+    display:flex; align-items:center; gap:10px;
+    margin:26px 0 12px;
+  }
+  .group-label .bar{ width:20px; height:3px; background:var(--coral); border-radius:2px; flex:none;}
+  .group-label.subj .bar{ background:var(--teal); }
+  .group-label h3{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; margin:0; color:var(--ink); }
+  .group-label .count{ font-size:12px; color:var(--slate); }
+
+  .q-row{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:16px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .q-row:last-child{ border-bottom:none; }
+  .q-text{ font-size:14.5px; min-width:0; }
+  .q-num{
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--slate);
+    font-size:12px;
+    margin-right:8px;
+  }
+
+  .rate{
+    display:flex;
+    border:1.5px solid var(--line);
+    border-radius:9px;
+    overflow:hidden;
+    flex:none;
+  }
+  .rate input{ display:none; }
+  .rate label{
+    width:38px; height:36px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px; font-weight:600;
+    color:var(--slate);
+    cursor:pointer;
+    border-right:1px solid var(--line);
+    background:#fff;
+    transition:background .12s ease,color .12s ease;
+  }
+  .rate label:last-child{ border-right:none; }
+  .rate input:checked + label{
+    background:var(--teal);
+    color:#fff;
+  }
+  .rate label:hover{ background:var(--mist); }
+
+  .comment-box{ margin-top:22px; }
+  .comment-box label{
+    font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--slate);
+    display:block; margin-bottom:8px;
+  }
+  textarea{
+    width:100%;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    resize:vertical;
+    min-height:74px;
+    max-width:100%;
+  }
+  textarea:focus{ outline:none; border-color:var(--teal); box-shadow:0 0 0 3px rgba(184,137,46,0.18);}
+
+  .placeholder-note{
+    display:none;
+    text-align:center;
+    padding:30px 10px;
+    color:var(--slate);
+    font-size:14px;
+  }
+  .placeholder-note.active{ display:block; }
+
+  .gen-card .section-head h2{ font-size:18px; }
+
+  .submit-bar{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px; flex-wrap:wrap;
+  }
+  .submit-bar p{ font-size:12.5px; color:var(--slate); margin:0; max-width:380px; }
+  button.submit{
+    background: linear-gradient(135deg,#8F6A1F,#D9A429 55%,#8F6A1F);
+    color:#fff;
+    border:none;
+    padding:13px 26px;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:filter .15s ease, transform .1s ease;
+    white-space:nowrap;
+  }
+  button.submit:hover{ filter:brightness(1.08); }
+  button.submit:active{ transform:scale(0.98); }
+
+  footer{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 24px;
+    text-align:center;
+    font-size:12px;
+    color:var(--slate);
+  }
+
+  @media (max-width:640px){
+    .grid{ grid-template-columns:1fr; }
+    .q-row{ grid-template-columns:1fr; }
+    .rate{ justify-self:stretch; width:100%; }
+    .rate label{ flex:1; }
+    header.top{ padding:28px 18px 56px; }
+    .card{ padding:20px; }
+    .shell{ padding:0 14px; margin-top:-32px; }
+    footer{ padding:0 14px; }
+  }
+
+  @media (max-width:400px){
+    header.top h1{ font-size:24px; }
+    header.top p.lead{ font-size:14px; }
+    .logo-row img{ height:36px; }
+    .card{ padding:16px; }
+    .step-mark{ width:22px; height:22px; font-size:11px; }
+    .intake-title h2{ font-size:17px; }
+    .rate label{ height:40px; font-size:12px; }
+    .submit-bar{ flex-direction:column; align-items:stretch; }
+    button.submit{ width:100%; text-align:center; }
+    .legend{ flex-wrap:wrap; }
+    .legend .seg{ flex:1 1 33%; border-bottom:1px solid var(--line); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+    header.top{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="logo-row"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA7kAAAEGCAYAAACgpFJJAAAQAElEQVR4Aey9B7xlVX0v/v2ttfbe55zbpg+9g1QVQVFBhdhbolEw9k5H6dgil9h7/qa86HsvyXt5Ly9v+KSpQbFkjDFEn5MoOCBIb9Pbbeecvfcq/+/a595hgAFhGGCAtWd/z+rtu9bae33XOveMQroSA4mBxEBiIDGQGEgMJAYSA4mBxEBiIDHwJGEgidwH7MgUkBhIDCQGEgOJgcRAYiAxkBhIDCQGEgNPNAaSyH2i9diuUN9Uh8RAYiAxkBhIDCQGEgOJgcRAYiAxsIsykETuLtoxqVpPTAZSrRMDiYHEQGIgMZAYSAwkBhIDiYHHl4Ekch9f/lPpiYGnCgOpnYmBxEBiIDGQGEgMJAYSA4mBx4SBJHIfE5pTIYmBxEBi4IEYSP6JgcRAYiAxkBhIDCQGEgM7k4EkcncmmymvxEBiIDGQGNh5DKScEgOJgcRAYiAxkBhIDOwAA0nk7gBpKUliIDGQGEgMJAYeTwZS2YmBxEBiIDGQGEgMPDADSeQ+MDcpJDGQGEgMJAYSA4mBJxYDqbaJgcRAYiAxkBhAErlpECQGEgOJgcRAYiAxkBh40jOQGpgYSAwkBp46DCSR+9Tp69TSxEBiIDGQGEgMJAYSA4mB+zKQ3ImBxMCTjoEkcp90XZoalBhIDCQGEgOJgcRAYiAxkBh4fAkkkft48Z9KTww8VRhI7UwMJAYSA4mBxEBiIDGQGEgMPCYMJJH7mNCcCkkMJAYSAw/EQPJPDCQGEgOJgcRAYiAxkBjYmQwkkbsz2Ux5JQYSA4mBxMDOY0EiT5AAAEAASURBVCDllBhIDCQGEgOJgcRAYmAHGEgidwdIS0kSA4mBxEBiIDHweDKQyk4MJAYSA4mBxEBi4IEZSCL3gblJIYmBxEBiIDGQGEgMPLEYSK1NDCQGEgOJgcQAkshNgyAxkBhIDCQGEgOJgcTAk56B1MDEQGIgMfDUYSCJ3KdOX6eWJgYSA4mBxEBiIDGQGEgM3JeB5E4MJAaehAwkkfsk7NTUpMRAYiAxkBhIDCQGEgOJgcRAYuCxYiCVkxjYtRhIIndX6o9UI9WQAAAQAElEQVQmMZAYSAwkBhIDiYHEQGIgMZAYSAwcuAykliUGdikGksjdpbojMZMYSAwkBhIDiYHEQGIgMZAYSAw8sRhIrU0M7GoMJJG7q/VI4icxkBhIDCQGEgOJgcRAYiAxkBhIDDxRGEjt3AUZSCJ3F+yUxFJiIDGQGEgMJAYSA4mBxEBiIDHwOGaWyQAAEABJREFUxMATi4HE7X5jIInc/YZ0KigxkBhIDCQGEgOJgcRAYiAxkBhIDDzFGEjNfQwZSCL3MQQ7FZUYSAwkBhIDiYHEQGIgMZAYeCwYSGUmBhIDiYFHhIDLKvsvAP4vAAAA//9ax0z1AAAABklEQVQDABDcQeVoR6IEAAAAAElFTkSuQmCC" alt="Urban Smiles Dental Clinic"></div>
+    <div class="eyebrow"><span class="dot"></span> 360° Structured Evaluation · All Branches</div>
+    <h1>Urban Smiles Staff Evaluation</h1>
+    <p class="lead">One rating scale, role-specific criteria. Select a branch and position below — the relevant Objective and Subjective questions load automatically.</p>
+  </div>
+</header>
+
+<div class="shell">
+
+  <!-- INTAKE -->
+  <div class="card">
+    <div class="intake-title">
+      <div class="step-mark">01</div>
+      <div>
+        <h2>Evaluation details</h2>
+        <span class="sub">Anonymous — only ID number and name of the person being evaluated are recorded.</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="field">
+        <label for="branch">Branch</label>
+        <select id="branch" onchange="onRoleOrBranchChange()">
+          <option value="">Select branch…</option>
+          <option>Alabang Festival Mall</option>
+          <option>Alimall Dentalis</option>
+          <option>Ayala Vertis North</option>
+          <option>BGC Market-Market</option>
+          <option>Eastwood Libis</option>
+          <option>Gateway Cubao</option>
+          <option>Head Office</option>
+          <option>Laboratory</option>
+          <option>One Ayala Neo</option>
+          <option>Parqal</option>
+          <option>Shaw</option>
+          <option>SM Fairview</option>
+          <option>SM North Dentalis</option>
+          <option>Sta Lucia</option>
+          <option>St. Lukes BGC</option>
+          <option>Winford Manila</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="idnum">Evaluator ID Number</label>
+        <input id="idnum" type="text" placeholder="e.g. 0142" inputmode="numeric">
+      </div>
+
+      <div class="field">
+        <label for="dateSubmitted">Date Submitted</label>
+        <input id="dateSubmitted" type="date">
+      </div>
+
+      <div class="field full">
+        <label for="role">Position Being Evaluated</label>
+        <select id="role" onchange="onRoleOrBranchChange()">
+          <option value="">Select position…</option>
+          <option value="dentist">Associate Dentist</option>
+          <option value="dse">Dental Support Expert (Dental Assistant)</option>
+          <option value="crs">Client Relations Specialist (Front Desk)</option>
+          <option value="branchhead">Head Dentist / Branch Head</option>
+          <option value="districtmgr">District Manager</option>
+          <option value="barista">Barista</option>
+          <option value="utility">Utility Staff</option>
+          <option value="massage">Massage Therapist</option>
+          <option value="other">Other Position (General Questions Only)</option>
+        </select>
+      </div>
+
+      <div class="field full">
+        <label for="employee">Name of Employee Being Evaluated</label>
+        <select id="employee" disabled>
+          <option value="">Select branch and position first…</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="anon-note">🔒 Responses are confidential. Branch leadership will only see aggregated, anonymized scores per employee.</div>
+  </div>
+
+  <!-- RATING SCALE LEGEND -->
+  <div class="card">
+    <div class="intake-title">
+      <div class="step-mark">02</div>
+      <div>
+        <h2>Rating scale</h2>
+        <span class="sub">Applied consistently across every question below.</span>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="seg"><span class="num">1</span>Poor</div>
+      <div class="seg"><span class="num">2</span>Low Average</div>
+      <div class="seg"><span class="num">3</span>Average</div>
+      <div class="seg"><span class="num">4</span>Above Average</div>
+      <div class="seg"><span class="num">5</span>High</div>
+    </div>
+  </div>
+
+  <!-- ROLE-SPECIFIC SECTION -->
+  <div class="card">
+    <div class="intake-title">
+      <div class="step-mark">03</div>
+      <div>
+        <h2>Role-specific criteria</h2>
+        <span class="sub">Only the set matching the selected position appears.</span>
+      </div>
+    </div>
+
+    <div id="placeholder" class="placeholder-note active">Select a position above to load its evaluation criteria.</div>
+
+    <!-- Associate Dentist -->
+    <div class="role-section" data-role="dentist">
+      <div class="section-head"><h2>Dentist</h2><span class="role-tag">Associate Dentist</span></div>
+
+      <div class="group-label"><div class="bar"></div><h3>Objective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">01</span>Accuracy of treatment records and charting.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">02</span>Compliance with infection control protocols.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">03</span>Timeliness in completing scheduled patient treatments.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">04</span>Attendance and punctuality in reporting to duty.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">05</span>Adherence to clinic policies and procedures.</div></div>
+
+      <div class="group-label subj"><div class="bar"></div><h3>Subjective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">06</span>Empathy shown toward patients during treatment.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">07</span>Professionalism and behavior toward co-workers.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">08</span>Respect for authority and branch leadership.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">09</span>Positive work mindset and adaptability to changes.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">10</span>Contribution to overall patient satisfaction.</div></div>
+
+      <div class="comment-box"><label>Open comment — Dentist</label><textarea placeholder="Additional observations…"></textarea></div>
+    </div>
+
+    <!-- Dental Support Expert -->
+    <div class="role-section" data-role="dse">
+      <div class="section-head"><h2>Dental Support Expert</h2><span class="role-tag">Dental Assistant</span></div>
+
+      <div class="group-label"><div class="bar"></div><h3>Objective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">01</span>Proper sterilization and preparation of instruments.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">02</span>Accuracy in assisting during dental procedures.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">03</span>Timeliness in preparing treatment rooms.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">04</span>Attendance and reliability in daily shifts.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">05</span>Compliance with safety and hygiene standards.</div></div>
+
+      <div class="group-label subj"><div class="bar"></div><h3>Subjective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">06</span>Initiative in supporting dentists and colleagues.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">07</span>Positive attitude toward co-workers and patients.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">08</span>Respectful behavior toward authority figures.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">09</span>Work mindset: willingness to learn and adapt.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">10</span>Professional demeanor under pressure.</div></div>
+
+      <div class="comment-box"><label>Open comment — Dental Support Expert</label><textarea placeholder="Additional observations…"></textarea></div>
+    </div>
+
+    <!-- Client Relations Specialist -->
+    <div class="role-section" data-role="crs">
+      <div class="section-head"><h2>Client Relations Specialist</h2><span class="role-tag">Front Desk</span></div>
+
+      <div class="group-label"><div class="bar"></div><h3>Objective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">01</span>Accuracy in scheduling appointments.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">02</span>Timeliness in processing billing and payments.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">03</span>Proper handling of patient records and confidentiality.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">04</span>Attendance and punctuality in front desk coverage.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">05</span>Compliance with clinic administrative procedures.</div></div>
+
+      <div class="group-label subj"><div class="bar"></div><h3>Subjective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">06</span>Friendliness and warmth in patient greetings.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">07</span>Cooperative attitude toward co-workers.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">08</span>Respectful behavior toward authority and management.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">09</span>Positive work mindset in resolving conflicts.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">10</span>Contribution to a welcoming branch environment.</div></div>
+
+      <div class="comment-box"><label>Open comment — Client Relations Specialist</label><textarea placeholder="Additional observations…"></textarea></div>
+    </div>
+
+    <!-- Head Dentist / Branch Head -->
+    <div class="role-section" data-role="branchhead">
+      <div class="section-head"><h2>Head Dentist</h2><span class="role-tag">Branch Head</span></div>
+
+      <div class="group-label"><div class="bar"></div><h3>Objective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">01</span>Timely submission of branch reports.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">02</span>Compliance with company policies and standards.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">03</span>Effectiveness in managing staff schedules.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">04</span>Attendance and presence in branch operations.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">05</span>Oversight of patient care quality.</div></div>
+
+      <div class="group-label subj"><div class="bar"></div><h3>Subjective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">06</span>Leadership attitude toward co-workers.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">07</span>Fairness and respect in authority role.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">08</span>Positive work mindset in improving operations.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">09</span>Clear communication and professional behavior.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">10</span>Ability to foster collaboration and teamwork.</div></div>
+
+      <div class="comment-box"><label>Open comment — Head Dentist / Branch Head</label><textarea placeholder="Additional observations…"></textarea></div>
+    </div>
+
+    <!-- District Manager -->
+    <div class="role-section" data-role="districtmgr">
+      <div class="section-head"><h2>District Manager</h2><span class="role-tag">Multi-branch oversight</span></div>
+
+      <div class="group-label"><div class="bar"></div><h3>Objective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">01</span>Consistency in monitoring multiple branches.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">02</span>Timeliness in submitting district-level reports.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">03</span>Compliance enforcement across branches.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">04</span>Attendance and visibility in branch visits.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">05</span>Oversight of branch performance indicators.</div></div>
+
+      <div class="group-label subj"><div class="bar"></div><h3>Subjective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">06</span>Leadership attitude toward branch heads.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">07</span>Respectful authority and fairness in decision making.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">08</span>Positive work mindset in driving improvements.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">09</span>Cooperative behavior in cross-branch collaboration.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">10</span>Contribution to overall organizational success.</div></div>
+
+      <div class="comment-box"><label>Open comment — District Manager</label><textarea placeholder="Additional observations…"></textarea></div>
+    </div>
+
+    <!-- Barista -->
+    <div class="role-section" data-role="barista">
+      <div class="section-head"><h2>Barista</h2><span class="role-tag">Café Counter</span></div>
+
+      <div class="group-label"><div class="bar"></div><h3>Objective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">01</span>Accuracy in preparing beverages.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">02</span>Timeliness in serving orders.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">03</span>Compliance with hygiene standards.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">04</span>Attendance and punctuality in shifts.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">05</span>Reliability in maintaining stock supplies.</div></div>
+
+      <div class="group-label subj"><div class="bar"></div><h3>Subjective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">06</span>Friendly attitude toward co-workers and customers.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">07</span>Respectful behavior toward authority and supervisors.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">08</span>Positive work mindset during peak hours.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">09</span>Professional demeanor under stress.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">10</span>Contribution to a welcoming branch atmosphere.</div></div>
+
+      <div class="comment-box"><label>Open comment — Barista</label><textarea placeholder="Additional observations…"></textarea></div>
+    </div>
+
+    <!-- Utility Staff -->
+    <div class="role-section" data-role="utility">
+      <div class="section-head"><h2>Utility Staff</h2><span class="role-tag">Facilities</span></div>
+
+      <div class="group-label"><div class="bar"></div><h3>Objective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">01</span>Consistency in maintaining cleanliness.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">02</span>Timeliness in completing housekeeping tasks.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">03</span>Proper disposal of waste and safety compliance.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">04</span>Attendance and reliability in daily duties.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">05</span>Maintenance of cleaning supplies and laundry.</div></div>
+
+      <div class="group-label subj"><div class="bar"></div><h3>Subjective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">06</span>Cooperative attitude toward co-workers.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">07</span>Respectful behavior toward authority.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">08</span>Positive work mindset in handling urgent tasks.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">09</span>Professional demeanor in unexpected situations.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">10</span>Contribution to overall branch orderliness.</div></div>
+
+      <div class="comment-box"><label>Open comment — Utility Staff</label><textarea placeholder="Additional observations…"></textarea></div>
+    </div>
+
+    <!-- Massage Therapist -->
+    <div class="role-section" data-role="massage">
+      <div class="section-head"><h2>Massage Therapist</h2><span class="role-tag">Wellness</span></div>
+
+      <div class="group-label"><div class="bar"></div><h3>Objective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">01</span>Accuracy in following prescribed massage techniques.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">02</span>Timeliness in completing scheduled sessions.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">03</span>Compliance with hygiene and patient safety standards.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">04</span>Attendance and punctuality in appointments.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">05</span>Reliability in preparing treatment areas.</div></div>
+
+      <div class="group-label subj"><div class="bar"></div><h3>Subjective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">06</span>Empathy and attentiveness to patient comfort.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">07</span>Cooperative attitude toward co-workers.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">08</span>Respectful behavior toward authority and supervisors.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">09</span>Positive work mindset in adapting to patient needs.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">10</span>Contribution to overall patient satisfaction.</div></div>
+
+      <div class="comment-box"><label>Open comment — Massage Therapist</label><textarea placeholder="Additional observations…"></textarea></div>
+    </div>
+
+    <!-- Other -->
+    <div class="role-section" data-role="other">
+      <div class="section-head"><h2>Other Position</h2><span class="role-tag">General only</span></div>
+      <p style="font-size:14px;color:var(--slate);margin:8px 0 0;">No role-specific rubric is defined yet for this position. Only the General questions below will be scored for this evaluation.</p>
+    </div>
+  </div>
+
+  <!-- GENERAL QUESTIONS -->
+  <div class="card gen-card">
+    <div class="section-head"><h2>General Questions — All Roles</h2><span class="role-tag">5 items</span></div>
+    <div class="q-row"><div class="q-text"><span class="q-num">01</span>Attendance &amp; Punctuality — consistently reports to work on time and fulfills scheduled shifts.</div></div>
+    <div class="q-row"><div class="q-text"><span class="q-num">02</span>Attitude Toward Co-Workers — demonstrates respect, cooperation, and support in team interactions.</div></div>
+    <div class="q-row"><div class="q-text"><span class="q-num">03</span>Respect for Authority — responds positively to guidance and follows instructions from supervisors/management.</div></div>
+    <div class="q-row"><div class="q-text"><span class="q-num">04</span>Work Mindset — shows initiative, adaptability, and a proactive approach to tasks and responsibilities.</div></div>
+    <div class="q-row"><div class="q-text"><span class="q-num">05</span>Behavior &amp; Professionalism — maintains appropriate conduct and represents Urban Smiles' values in daily work.</div></div>
+
+    <div class="comment-box"><label>Open comment — General</label><textarea placeholder="Additional observations…"></textarea></div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="card">
+    <div class="submit-bar">
+      <p>By submitting, you confirm this evaluation reflects your honest, professional assessment of the employee named above.</p>
+      <button class="submit" type="button" id="submitBtn" onclick="submitEvaluation()">Submit Evaluation →</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Urban Smiles &nbsp;·&nbsp; 360° Structured Evaluation &nbsp;·&nbsp; Design preview
+</footer>
+
+<script>
+  // 1. In Make.com, create a scenario starting with a "Webhooks > Custom webhook" module.
+  // 2. Copy the generated webhook URL and paste it below, replacing the placeholder.
+  var WEBHOOK_URL = "https://hook.eu1.make.com/ny3swn5x34e65rejp6k7smruvc2bfmy4";
+
+  var EMPLOYEES = [{"name": "ALCANTARA, FITZ JERARD EMMANUEL CAÑA", "branch": "Alabang Festival Mall", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BARRETTO, ELIZABETH IKU SAKAGUCHI", "branch": "Alabang Festival Mall", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CAYETANO, STANLEY LAVADIA", "branch": "Alabang Festival Mall", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CRUZ, HEIDELBERG BORJA", "branch": "Alabang Festival Mall", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LEDESMA, MATTHEW PHILIP MANLICLIC", "branch": "Alabang Festival Mall", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "MENDOZA, MARY GRACE VICENTE", "branch": "Alabang Festival Mall", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LADIANA, ALLIYAH ANNE DAOS", "branch": "Alabang Festival Mall", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "MERHAN, MARY JOYCE CATARINING", "branch": "Alabang Festival Mall", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "ANTONIO, LORRAINE BAUTISTA", "branch": "Alabang Festival Mall", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "BANOG, RITCHELL GARCIA", "branch": "Alabang Festival Mall", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PARAISO, ARLYN SONGALIA", "branch": "Alabang Festival Mall", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "SANTOS, MAUREEN FATIMA MALINAO", "branch": "Alabang Festival Mall", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "AGUTO, MA. KHRISNA CIELO", "branch": "Alimall Dentalis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BAUN, MARIANNE MIKA BARSAGA", "branch": "Alimall Dentalis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LAPU-OS, SHIELA ARJONA", "branch": "Alimall Dentalis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LIBRANDO, NAICIE SOLIVEN", "branch": "Alimall Dentalis", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "MAGAUAY, CHRISTINE JOY BAYOG", "branch": "Alimall Dentalis", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "ANGELES, ILERIE JOY N/A", "branch": "Alimall Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "BAYNITO, VIC REDADO", "branch": "Alimall Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "GIMOTO, MICHELLE FANCUBILA", "branch": "Alimall Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PARTORIZA,, FRANCHESKA LOUIS N/A", "branch": "Alimall Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RILLES - UBANA, MONA ROSE HERRADURA", "branch": "Alimall Dentalis", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "CAPULE, JODALE DELA CRUZ", "branch": "Ayala Vertis North", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "GUEVARRA, JANET JEAN AMORIN", "branch": "Ayala Vertis North", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "MORALES, JANET SAN PEDRO", "branch": "Ayala Vertis North", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "RIVERA, AARON CHRISTIAN LARIN", "branch": "Ayala Vertis North", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TOLENTINO, JAN MATTHEW FONTAMILLAS", "branch": "Ayala Vertis North", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "IRENEO, MIKAELA MAE VILLAFLOR", "branch": "Ayala Vertis North", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "LUAREZ, NELROSE JANE MONDEJAR", "branch": "Ayala Vertis North", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "PEREJA, PAULINE RODNEE ARELLANO", "branch": "Ayala Vertis North", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "CORALDE, JOHN RICHER TAYO", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "CRUZ, HONEYLEEN OCAMPO", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ESCAREZ, JOMEL SANTOS", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "MAZO, RUBY MONERA", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "OBEÑA, MA. KRIZELL YVIRELEEN BERNARDO", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ORENSE, FHIEL SARMIENTO", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RAMA, JOLINA RAE MONTIBON", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "SANCHEZ, GRACE CANAY", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "YANGA, SABRINA NICOLE QUIA", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ESPINO, EILENE RACHEL TAN", "branch": "Ayala Vertis North", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "RAMOS, RON EROLD GARCIA", "branch": "Ayala Vertis North", "position": "UTILITY", "role": "utility"}, {"name": "ACUÑA, EMILIO TALAN", "branch": "BGC Market-Market", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "APOSTOL, SHERICA JOY CRUZ", "branch": "BGC Market-Market", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BONIFACIO, EVA FLORES", "branch": "BGC Market-Market", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "DE DIOS, THEA BIANCA MANUEL", "branch": "BGC Market-Market", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "SALAZAR, RAYMOND ARNEL ESTACIO", "branch": "BGC Market-Market", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BAQUE, EDERLY CAIBOG", "branch": "BGC Market-Market", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "NALOG, DIANA MAE SIDOL", "branch": "BGC Market-Market", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "OBORDO, LEONORA EMOY", "branch": "BGC Market-Market", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "ALBARICO, LOURMELYN PAGUNSAN", "branch": "BGC Market-Market", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "CORALDE, JOHN FRITZ TAYO", "branch": "BGC Market-Market", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DAIZ, RASHIDA HADJIROL", "branch": "BGC Market-Market", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RAMILO, MEIVELIN KHRISTLE CALLUENG", "branch": "BGC Market-Market", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TABERNERO, EURICA ATHENA NOMBRADO", "branch": "BGC Market-Market", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TAYAG, AUDRA MARGARITA DE GUZMAN", "branch": "BGC Market-Market", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "ANGELES, MA. WINSLIN DESIDERIO", "branch": "Eastwood Libis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "VELASQUEZ, ALANIS CATIPAN", "branch": "Eastwood Libis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "VILCHEZ, JUDY ANNE FERNANDEZ", "branch": "Eastwood Libis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "ASCAÑO, ANN MELODY CRUZ", "branch": "Eastwood Libis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TECRUZ, KAYE RIVERA", "branch": "Eastwood Libis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ANGELES, LOU JUSTHINE SANTIAGO", "branch": "Gateway Cubao", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BERNARDO, ALBERT CYRIL GALMAN", "branch": "Gateway Cubao", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "GALVEZ, JAZREENE KYLA FABRE", "branch": "Gateway Cubao", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "ANSIBOY, NICOLE JOY BERAQUIT", "branch": "Gateway Cubao", "position": "CLINIC RELATION SPECIALIST", "role": "crs"}, {"name": "MIGUEL, PIA SUPAN", "branch": "Gateway Cubao", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "ACOYMO, JERIMAE JOCOSOL", "branch": "Gateway Cubao", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "CEZAR, PAULINE VIANCA ORLANDA", "branch": "Gateway Cubao", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TIGAON, RUBY JANE DOMINGO", "branch": "Gateway Cubao", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "VILLANUEVA, DI ANNE FALCO", "branch": "Gateway Cubao", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DAUS, KRYSTAL KAYE BARIA", "branch": "Gateway Cubao", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "MAMARUBA, ANA JOHANIFAH DIMAPORO", "branch": "Head Office", "position": "ACCOUNTING SPECIALIST - AP", "role": "other"}, {"name": "CAPONPON, JOSEPH LESTER DELAS ALAS", "branch": "Head Office", "position": "ADMIN ASSISTANT", "role": "crs"}, {"name": "GALVANO, JOY CORVERA", "branch": "Head Office", "position": "ADMIN ASSISTANT", "role": "crs"}, {"name": "DE LEON, HANNAH GABRIELLI", "branch": "Head Office", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "GONZALES, EILASOR BENITEZ", "branch": "Head Office", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "MENDOZA, ANGELA BERNIE CAMARA", "branch": "Head Office", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "APOSTOL, RUEL PIERRE", "branch": "Head Office", "position": "CHIEF EXECUTIVE OFFICER", "role": "other"}, {"name": "LUMABAS, JAMES AARON CABUENAS", "branch": "Head Office", "position": "CHIEF OF STAFF", "role": "other"}, {"name": "BAUTISTA, JENNIFER DELOS SANTOS", "branch": "Head Office", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "AMADO, JOHN CHRISTIAN ESTRADA", "branch": "Head Office", "position": "COMPANY DRIVER", "role": "utility"}, {"name": "BAUTISTA JR, NORBERTO TUBALE", "branch": "Head Office", "position": "COMPANY DRIVER", "role": "utility"}, {"name": "DEAUNA, EMMANUEL RAYOS", "branch": "Head Office", "position": "COMPANY DRIVER", "role": "utility"}, {"name": "ESCOSIA, RICKY BOY ORIAN", "branch": "Head Office", "position": "COMPANY DRIVER", "role": "utility"}, {"name": "CABILLA, JAMES DAVID DANCEL", "branch": "Head Office", "position": "CONTENT & INTERNAL MARKETING OFFICER", "role": "other"}, {"name": "PERIN, DOMINIC DEJITO", "branch": "Head Office", "position": "CONTENT & INTERNAL MARKETING OFFICER", "role": "other"}, {"name": "CUSI, MATTHEW LORENZO LUNA", "branch": "Head Office", "position": "CREATIVE MEDIA MANAGER", "role": "other"}, {"name": "ANTONIO, MARIA DELMAR DELAS ALAS", "branch": "Head Office", "position": "CUSTOMER SERVICE CHAMPION", "role": "crs"}, {"name": "REYES, JOANNA ARRIESGADO", "branch": "Head Office", "position": "CUSTOMER SERVICE CHAMPION", "role": "crs"}, {"name": "JAVIER, ROMMEL BURGOS", "branch": "Head Office", "position": "DENTAL TECHNICIAN", "role": "dse"}, {"name": "AGUINALDO, LYCA FIGUEROA", "branch": "Head Office", "position": "DISTRICT MANAGER", "role": "districtmgr"}, {"name": "RAMOS, CHRISTOFER AVEDANO", "branch": "Head Office", "position": "DISTRICT MANAGER", "role": "districtmgr"}, {"name": "ROXAS, MA MICHAELLA PEÑALOSA", "branch": "Head Office", "position": "EXECUTIVE ASSISTANT", "role": "other"}, {"name": "DE ASAS, MARICHU SALGADO", "branch": "Head Office", "position": "GENERAL MANAGER / CHIEF OF CLINICS", "role": "branchhead"}, {"name": "LOYOLA, LEINA BERNALENE MORENA", "branch": "Head Office", "position": "GRAPHIC ARTIST", "role": "other"}, {"name": "ACUÑA, MELINDA MAÑALAC", "branch": "Head Office", "position": "HEAD DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "BULURAN, FRANCIS ARGIE TAPIC", "branch": "Head Office", "position": "HEAD OF DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "CLEMENTE, AERONN GUTIERREZ", "branch": "Head Office", "position": "HEAD OF PEOPLE & CULTURE", "role": "other"}, {"name": "ESCLEBA, JHULLIE ANNE VILLESTAR", "branch": "Head Office", "position": "HR ADMIN ASSISTANT", "role": "other"}, {"name": "BADILLA, JOHN DANIEL RICO", "branch": "Head Office", "position": "IT ASSOCIATE", "role": "other"}, {"name": "VALENCIA, AXCEL DAVE MANLUTAC", "branch": "Head Office", "position": "IT OFFICER", "role": "other"}, {"name": "PATAL, RICHARD OLARTE", "branch": "Head Office", "position": "LIAISON OFFICER", "role": "other"}, {"name": "CARATAO, JOVEL FLORES", "branch": "Head Office", "position": "MAINTENANCE OFFICER", "role": "utility"}, {"name": "LOPEZ, LOUISE ANN BOLANTE", "branch": "Head Office", "position": "MARKETING ASSOCIATE", "role": "other"}, {"name": "PANDUNGAN-ARAZA, MARIELLE ANN BESANA", "branch": "Head Office", "position": "MARKETING HEAD OF THE PRESIDENT", "role": "other"}, {"name": "CORDERO, MARIA CECILIA BENITO", "branch": "Head Office", "position": "OPERATIONS MANAGER", "role": "districtmgr"}, {"name": "PANDUMA, MARY COCALAINE ORUGA", "branch": "Head Office", "position": "PATIENT EXPERIENCE AND SERVICE EXCELLENCE MANAGER", "role": "other"}, {"name": "GAMBOA, ERICKA PAGADOR", "branch": "Head Office", "position": "PEOPLE & CULTURE ASSOCIATE", "role": "other"}, {"name": "GUTIERREZ, JAYSON GREG GABRIEL", "branch": "Head Office", "position": "PEOPLE & CULTURE SUPERVISOR", "role": "other"}, {"name": "REYES, ALYSSA MAE YAUDER", "branch": "Head Office", "position": "PR & SPECIAL PROJECTS ASSOCIATE", "role": "other"}, {"name": "DELAS ALAS, RALPH FIGAROA", "branch": "Head Office", "position": "PRESIDENT", "role": "other"}, {"name": "PILI, PRECIOUS GEM ESTABILLO", "branch": "Head Office", "position": "REGULATORY COMPLIANCE OFFICER", "role": "other"}, {"name": "BUENAVISTA, MARYHETTE PRADO", "branch": "Head Office", "position": "SENIOR ACCOUNTING SPECIALIST I", "role": "other"}, {"name": "ILAGAN, ROXANNE RIVERA", "branch": "Head Office", "position": "SENIOR ACCOUNTING SPECIALIST I", "role": "other"}, {"name": "SANTOS, CLAREZ JOY CABAHUG", "branch": "Head Office", "position": "SR. DISTRICT MANAGER", "role": "districtmgr"}, {"name": "ENRIQUEZ, MARILYN CUENO", "branch": "Head Office", "position": "UTILITY", "role": "utility"}, {"name": "RULLAN, JACOB SAPAFO", "branch": "Head Office", "position": "UTILITY", "role": "utility"}, {"name": "TIEMSEN, GERON BUENAVENTURA", "branch": "Laboratory", "position": "DENTAL CAD TECHNICIAN", "role": "dse"}, {"name": "ABES, CHESEA MAE AGLANAO", "branch": "Laboratory", "position": "DENTAL TECHNICIAN", "role": "dse"}, {"name": "MACABURAS, HOWARD NONE", "branch": "Laboratory", "position": "DENTAL TECHNICIAN", "role": "dse"}, {"name": "NAZARREA, MICHAEL CHRISTIAN SARCENA", "branch": "Laboratory", "position": "JUNIOR DENTAL TECHNICIAN", "role": "dse"}, {"name": "DEL ROSARIO, BHEN JHUR MIRANDA", "branch": "Laboratory", "position": "LABORATORY MANAGER", "role": "other"}, {"name": "ARELLANO, GAILE CASTILLO", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BONCAJES, JASFER JAY FERNANDEZ", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "DELA CRUZ, KAY ILARINA", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "MARTINEZ, ANGELA NOELLE", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "MARUYAMA, KURT ANGELO GONZALES", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "PIMENTEL, SHARIE FAYE BOBILA", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "SADANG, MADELEINE JO DOMINGO", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TABIOS, KRISTINE GAYLE SHOUDER", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "YUNON, VINCENT RAPHAEL ARMENDI", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TARINE, JUSTINE LALAINE ALBA", "branch": "One Ayala Neo", "position": "BARISTA", "role": "barista"}, {"name": "ABES, ROSEMARIE MONTEROZO", "branch": "One Ayala Neo", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "CALIBO, JESSA KRISA ESMALA", "branch": "One Ayala Neo", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "DORADO, DANIELLA LABIANO", "branch": "One Ayala Neo", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "PELARCO, JONELYN DELGADO", "branch": "One Ayala Neo", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "TAPAYAN, JELLIE FARILLON", "branch": "One Ayala Neo", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "MACATANGAY, RODERICK BAUTISTA", "branch": "One Ayala Neo", "position": "COMPANY DRIVER", "role": "utility"}, {"name": "LABARDA, DANICA ANN VICTORE", "branch": "One Ayala Neo", "position": "CUSTODIAN", "role": "utility"}, {"name": "AMORANTO, NICOLE ANN TENORIO", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ARAGON, MAAN DENISSE MARTINEZ", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "AYSON, CHRISTIAN JAY PINEDA", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "COMBRAS, JENNIFER ILAGAN", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "COQUIA, JOHN RHEY ROGUEL", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "CRUZ, JOCELYN AYUSON", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "JAMMANG, LYN SHERLY ALIMUDDIN", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "JOMADIAO, WILBERT ARETAÑO", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "JULHANI, SHARIKA MAGSAYSAY", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "MARAY, MARK ANTHONY SAMSON", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "MOHAMMAD, ALFATRA ASARAIN", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "OFQUERIA, VICKLYN ILLUT", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "POLO, MARY GRACE CARLOS", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PORCALLA, PATRICK VAN LEEL", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PRAN, JOVELYN JAMISOLA", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TOLENTINO, ELIZABETH RAMOS", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "VARGAS, MARIVIC MIRANDA", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "VERDARA, DENNIS ANACION", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RONQUILLO, PRINCESS DIANA RODIL", "branch": "One Ayala Neo", "position": "EXECUTIVE ASSISTANT", "role": "other"}, {"name": "ESCUETA, DEAN MEGI ROVILLOS", "branch": "One Ayala Neo", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "BRIAGAS, CARL KENRICK CELLO", "branch": "One Ayala Neo", "position": "MARKETING ASSOCIATE", "role": "other"}, {"name": "CONCEPCION, JOHN REINZEL RONATO", "branch": "One Ayala Neo", "position": "MARKETING ASSOCIATE", "role": "other"}, {"name": "ENRIQUEZ, GENEROSO MERCADO", "branch": "One Ayala Neo", "position": "MARKETING ASSOCIATE", "role": "other"}, {"name": "DELA PENA, RAFAEL BALAJADIA", "branch": "One Ayala Neo", "position": "UTILITY", "role": "utility"}, {"name": "JUNIO, KATES NICOLE VIRAY", "branch": "Parqal", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "RANIDO, SHELAMAE ALCANTARA", "branch": "Parqal", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "SEGUENZA, JOANNE GERARDINE SARILLA", "branch": "Parqal", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TIMKANG, LIZETTE REYES", "branch": "Parqal", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "ALFARO, RONETH CUSTODIO", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "GERO, WULILDA BALASBAS", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "LANUZGA, GWYNETH ANN LUMBANG", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "MAGBANUA, RODEL LATOJA", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "REPARBOR, RYAN FELIZARIO", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "SUGUITAN, MARY LEIGH LOPEZ", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "VERGARA, BEVERLY ESPINO", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DUNGCA, ROMEO JUNIOR GRANADOS", "branch": "Parqal", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "BALANTIN, JEZREEL TARNATE", "branch": "Shaw", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CORDERO, JONAMEI CONDE", "branch": "Shaw", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "ROGONG, IRENE", "branch": "Shaw", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TRIAS, MARIONE KAREN SAUCO", "branch": "Shaw", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "VALERO, JOHN VINCENT SAN JUAN", "branch": "Shaw", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CASTAÑEDA, CLAUDINE IANAH ROMERO", "branch": "Shaw", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "DIMACALI, CHARISSE FERNANDO", "branch": "Shaw", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "BANGUIH, SOFIA MOCADDAM", "branch": "Shaw", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DELA PENA, ARCHET N/A", "branch": "Shaw", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "GUILLERGAN, HAZEL ANNE COOLEEN HABLADO", "branch": "Shaw", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "GUTIERREZ, ANGELICA DORMIENDO", "branch": "Shaw", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "GADDI, FRANCIS RANZELLE DELOS REYES", "branch": "Shaw", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "BASILAN, ARVIN MONLEON", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CLAUDIO, RITCHELLE JOANNE TOLOSA", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "GODOY, GLESIRHYL PENTINIO", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "NEE-ESTUYE, MARISSA CABRERA", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TORRES, JR., CLIYD RODERICK AGUIRRE", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "JAVIER, JOHN BERCILLA", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST/ PART TIME", "role": "dentist"}, {"name": "ESTANISLAO, ZHARINA LUANGCO", "branch": "SM Fairview", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "VALES, NIÑA AIRA MARIE SANTIAGO", "branch": "SM Fairview", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "QUINTOS, ANGIE BANTILAN", "branch": "SM Fairview", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RONDINA, CHARYN SOLLANO", "branch": "SM Fairview", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TRASMAN̈O, ANNABEL TUMANENG", "branch": "SM Fairview", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PAMINTUAN, JENKINS BABAC", "branch": "SM Fairview", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "MONTEALEGRE, LHENERY CASTILLO", "branch": "SM North Dentalis", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "MARCOS, JANE AUDREY LOPIDO", "branch": "SM North Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PUAZO, ARABELLA NICOLE LABRADOR", "branch": "SM North Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DOMINGUEZ, IMEEH JOYCE MORANA", "branch": "St. Lukes BGC", "position": "CLIENT RELATION SPECIALIST", "role": "crs"}, {"name": "DE VERA, APRIL JOY ORTIZ", "branch": "St. Lukes BGC", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DE CASTRO, RACIEL ALVAREZ", "branch": "Sta Lucia", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LAGO-BELVEZ, VERONICA TOLENTINO", "branch": "Sta Lucia", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LAGUARDIA, HAROLD DAULAT", "branch": "Sta Lucia", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LASAM, CERRE KYLNE PAGULAYAN", "branch": "Sta Lucia", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "PANGILINAN, BIANCA ALYANNA TUGADE", "branch": "Sta Lucia", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "SANGGA, DIONA FE PANLAAN", "branch": "Sta Lucia", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "TESALONA, KYLA KATE BAGUIO", "branch": "Sta Lucia", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "BELLEN, REA ROSE VICENTE", "branch": "Sta Lucia", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "FLANDEZ, GELLY GASPAN", "branch": "Sta Lucia", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "MENDOZA, WILFREDO APOSTOL", "branch": "Sta Lucia", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ARGETE, KENNY JOHN PARAS", "branch": "Winford Manila", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CARAOS, JOSE LORENZO MENDIOLA", "branch": "Winford Manila", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "ROMAN, RALPH ADRIAN REYES", "branch": "Winford Manila", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "ZABALA, ROAN PATRICE DE GUZMAN", "branch": "Winford Manila", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LUYAHAN, SHAMEZ LYN REYES", "branch": "Winford Manila", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "PATALINGHOG, JOSIE ROSE CAROD", "branch": "Winford Manila", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "DE LARA, TRACEY LIANNE CIPRIANO", "branch": "Winford Manila", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RAFAEL, MARIA ANGELA SOLIMAN", "branch": "Winford Manila", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TALENTO, JEMELINE GALLARDO", "branch": "Winford Manila", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "UNTIVERO, MARRI FRENCHIZKA LOLENG", "branch": "Winford Manila", "position": "HEAD DENTIST", "role": "branchhead"}];
+
+  function setDefaultDate(){
+    var dateField = document.getElementById('dateSubmitted');
+    if(dateField && !dateField.value){
+      var today = new Date();
+      var yyyy = today.getFullYear();
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
+      var dd = String(today.getDate()).padStart(2, '0');
+      dateField.value = yyyy + '-' + mm + '-' + dd;
+    }
+  }
+  setDefaultDate();
+
+  function showRole(value){
+    document.querySelectorAll('.role-section').forEach(function(sec){
+      sec.classList.toggle('active', sec.getAttribute('data-role') === value);
+    });
+    var placeholder = document.getElementById('placeholder');
+    placeholder.classList.toggle('active', !value);
+  }
+
+  function onRoleOrBranchChange(){
+    var branch = document.getElementById('branch').value;
+    var role = document.getElementById('role').value;
+    showRole(role);
+    populateEmployees(branch, role);
+  }
+
+  function populateEmployees(branch, role){
+    var sel = document.getElementById('employee');
+    sel.innerHTML = '';
+
+    if(!branch || !role){
+      var opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = 'Select branch and position first…';
+      sel.appendChild(opt);
+      sel.disabled = true;
+      return;
+    }
+
+    var matches = EMPLOYEES.filter(function(e){
+      return e.branch === branch && e.role === role;
+    });
+
+    var placeholderOpt = document.createElement('option');
+    placeholderOpt.value = '';
+    if(matches.length === 0){
+      placeholderOpt.textContent = 'No matching employee found for this branch/position';
+    } else {
+      placeholderOpt.textContent = 'Select employee… (' + matches.length + ' found)';
+    }
+    sel.appendChild(placeholderOpt);
+
+    matches.forEach(function(e){
+      var opt = document.createElement('option');
+      opt.value = e.name;
+      opt.textContent = e.name + ' — ' + e.position;
+      sel.appendChild(opt);
+    });
+
+    sel.disabled = false;
+  }
+
+  // Inject the 1-5 rating control into every question row
+  (function buildRatingControls(){
+    document.querySelectorAll('.q-row').forEach(function(row, idx){
+      if(row.dataset.built) return;
+      row.dataset.built = "true";
+      var wrap = document.createElement('div');
+      wrap.className = 'rate';
+      var container = row.closest('.role-section') || row.closest('.gen-card');
+      var scope = container ? (container.classList.contains('gen-card') ? 'general' : container.getAttribute('data-role')) : 'misc';
+      var qNumEl = row.querySelector('.q-num');
+      var qNum = qNumEl ? parseInt(qNumEl.textContent, 10) : idx;
+      var name = scope + '_q' + qNum;
+      row.dataset.scope = scope;
+      row.dataset.qnum = qNum;
+      for(var i=1;i<=5;i++){
+        var id = name + '_' + i;
+        var input = document.createElement('input');
+        input.type = 'radio'; input.name = name; input.id = id; input.value = i;
+        var label = document.createElement('label');
+        label.setAttribute('for', id);
+        label.textContent = i;
+        wrap.appendChild(input);
+        wrap.appendChild(label);
+      }
+      row.appendChild(wrap);
+    });
+  })();
+
+  function getChecked(name){
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? parseInt(el.value, 10) : null;
+  }
+
+  function collectRoleAnswers(scope){
+    var answers = {};
+    for(var i = 1; i <= 10; i++){
+      answers['q' + i] = getChecked(scope + '_q' + i);
+    }
+    return answers;
+  }
+
+  function submitEvaluation(){
+    var branch = document.getElementById('branch').value;
+    var idnum = document.getElementById('idnum').value.trim();
+    var dateSubmitted = document.getElementById('dateSubmitted').value;
+    var role = document.getElementById('role').value;
+    var employee = document.getElementById('employee').value;
+
+    if(!branch || !idnum || !dateSubmitted || !role || !employee){
+      alert('Please complete branch, evaluator ID number, date submitted, position, and employee before submitting.');
+      return;
+    }
+
+    var employeeRecord = EMPLOYEES.find(function(e){ return e.name === employee; }) || {};
+
+    var roleAnswers = role === 'other' ? {} : collectRoleAnswers(role);
+    var roleSection = document.querySelector('.role-section[data-role="' + role + '"]');
+    var roleComment = roleSection ? (roleSection.querySelector('textarea') || {}).value || '' : '';
+
+    var generalAnswers = {};
+    for(var i = 1; i <= 5; i++){
+      generalAnswers['q' + i] = getChecked('general_q' + i);
+    }
+    var generalComment = (document.querySelector('.gen-card textarea') || {}).value || '';
+
+    var payload = {
+      branch: branch,
+      evaluatorIdNumber: idnum,
+      dateSubmitted: dateSubmitted,
+      employeeName: employee,
+      position: employeeRecord.position || '',
+      templateGroup: role,
+      roleQuestions: roleAnswers,
+      roleComment: roleComment,
+      generalQuestions: generalAnswers,
+      generalComment: generalComment,
+      submittedAt: new Date().toISOString()
+    };
+
+    if(WEBHOOK_URL.indexOf('PASTE_YOUR_MAKE_WEBHOOK_URL_HERE') !== -1){
+      alert('Webhook not configured yet. Paste your Make.com webhook URL into WEBHOOK_URL in the code before going live.\n\nPayload that would have been sent:\n' + JSON.stringify(payload, null, 2));
+      return;
+    }
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(res){
+      if(!res.ok) throw new Error('Server responded with ' + res.status);
+      alert('Evaluation submitted. Thank you!');
+      btn.textContent = 'Submit Evaluation →';
+      btn.disabled = false;
+    })
+    .catch(function(err){
+      alert('Something went wrong sending this evaluation. Please try again.\n(' + err.message + ')');
+      btn.textContent = 'Submit Evaluation →';
+      btn.disabled = false;
+    });
+  }
+</script>
+
+</body>
+</html>
