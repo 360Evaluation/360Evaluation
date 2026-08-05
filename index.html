@@ -602,15 +602,23 @@
       <div class="comment-box"><label>Open comment — Head Dentist / Branch Head</label><textarea placeholder="Additional observations…"></textarea></div>
     </div>
 
-    <!-- District Manager -->
+   <!-- District Manager -->
     <div class="role-section" data-role="districtmgr">
       <div class="section-head"><h2>District Manager</h2><span class="role-tag">Multi-branch oversight</span></div>
 
+      <div class="group-label"><div class="bar"></div><h3>Objective</h3><span class="count">5 items</span></div>
       <div class="q-row"><div class="q-text"><span class="q-num">01</span>How effectively are dentist and DSE schedules managed to balance patient demand and staff workload?</div></div>
       <div class="q-row"><div class="q-text"><span class="q-num">02</span>How are patient escalations beyond branch resolution being handled?</div></div>
       <div class="q-row"><div class="q-text"><span class="q-num">03</span>How well are branch requirements, repairs, and administrative concerns addressed across the district?</div></div>
       <div class="q-row"><div class="q-text"><span class="q-num">04</span>How accurate and correct are commission computations for Dentists, DSEs, and CRS staff?</div></div>
       <div class="q-row"><div class="q-text"><span class="q-num">05</span>How consistently is fairness and equal treatment ensured for all staff under your district?</div></div>
+
+      <div class="group-label subj"><div class="bar"></div><h3>Subjective</h3><span class="count">5 items</span></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">06</span>Leadership attitude toward branch heads.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">07</span>Respectful authority and fairness in decision-making.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">08</span>Positive work mindset in driving improvements.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">09</span>Cooperative behavior in cross-branch collaboration.</div></div>
+      <div class="q-row"><div class="q-text"><span class="q-num">10</span>Contribution to overall organizational success.</div></div>
 
       <div class="comment-box"><label>Open comment — District Manager</label><textarea placeholder="Additional observations…"></textarea></div>
     </div>
@@ -820,8 +828,7 @@
 
   function collectRoleAnswers(scope){
     var answers = {};
-    var count = (scope === 'districtmgr') ? 5 : 10;
-    for(var i = 1; i <= count; i++){
+    for(var i = 1; i <= 10; i++){
       answers['q' + i] = getChecked(scope + '_q' + i);
     }
     return answers;
