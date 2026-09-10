@@ -1,408 +1,518 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Urban Smiles — 360° Structured Evaluation</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#2B2013;
-    --teal:#B8892E;
-    --teal-deep:#8F6A1F;
-    --mist:#FBF6EA;
-    --paper:#FFFFFF;
-    --slate:#8A7A5C;
-    --line:#EBDFBE;
-    --coral:#C97A2E;
-    --amber:#D6A339;
-    --gold-soft:#F1E2B8;
-    --radius:14px;
-    --shadow: 0 1px 2px rgba(43,32,19,0.05), 0 8px 24px rgba(43,32,19,0.08);
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urban Smiles — 360° Structured Evaluation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #2B2013;
+      --teal: #B8892E;
+      --teal-deep: #8F6A1F;
+      --mist: #FBF6EA;
+      --paper: #FFFFFF;
+      --slate: #8A7A5C;
+      --line: #EBDFBE;
+      --coral: #C97A2E;
+      --amber: #D6A339;
+      --gold-soft: #F1E2B8;
+      --radius: 14px;
+      --shadow: 0 1px 2px rgba(43,32,19,0.05), 0 8px 24px rgba(43,32,19,0.08);
+    }
 
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  html{ overflow-x:hidden; }
-  body{
-    background:var(--mist);
-    color:var(--ink);
-    font-family:'Inter',sans-serif;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-    padding-bottom:80px;
-    overflow-x:hidden;
-    width:100%;
-  }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { overflow-x: hidden; }
+    body {
+      background: var(--mist);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+      overflow-x: hidden;
+      width: 100%;
+    }
 
-  h1,h2,h3,.display{
-    font-family:'Space Grotesk',sans-serif;
-    letter-spacing:-0.01em;
-  }
+    h1, h2, h3, .display {
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.01em;
+    }
 
-  .mono{ font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; }
+    .mono {
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.02em;
+    }
 
-  /* ---------- Header ---------- */
-  header.top{
-    background:
-      linear-gradient(120deg, rgba(255,255,255,0) 40%, rgba(255,244,214,0.55) 50%, rgba(255,255,255,0) 60%),
-      linear-gradient(135deg,#6E4E12 0%,#B8892E 32%,#F0C766 52%,#C6941F 68%,#7A5A18 100%);
-    background-size: 220% 220%, 100% 100%;
-    background-position: 0% 0%, 0% 0%;
-    animation: goldSheen 7s ease-in-out infinite;
-    color:#fff;
-    padding:32px 24px 64px;
-    position:relative;
-    overflow:hidden;
-    width:100%;
-  }
-  @keyframes goldSheen{
-    0%   { background-position: -40% -40%, 0% 0%; }
-    50%  { background-position: 140% 140%, 0% 0%; }
-    100% { background-position: -40% -40%, 0% 0%; }
-  }
-  .logo-row{
-    display:flex; align-items:center; gap:14px;
-    margin-bottom:26px;
-  }
-  .logo-row img{
-    height:44px;
-    width:auto;
-    max-width:100%;
-    display:block;
-    filter:brightness(0) invert(1);
-  }
-  header.top::before{
-    content:"";
-    position:absolute;
-    right:-80px; top:-80px;
-    width:320px; height:320px;
-    border-radius:50%;
-    border:1px solid rgba(255,255,255,0.22);
-    box-shadow: 0 0 40px rgba(255,230,170,0.25);
-    pointer-events:none;
-  }
-  header.top::after{
-    content:"";
-    position:absolute;
-    right:20px; bottom:-140px;
-    width:280px; height:280px;
-    border-radius:50%;
-    border:1px solid rgba(255,255,255,0.14);
-    pointer-events:none;
-  }
-  .top-inner{
-    max-width:900px;
-    margin:0 auto;
-    position:relative;
-    z-index:2;
-  }
-  .eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    background:rgba(255,255,255,0.16);
-    border:1px solid rgba(255,241,204,0.45);
-    padding:6px 14px;
-    border-radius:100px;
-    margin-bottom:22px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
-  }
-  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:#FFF3D0; box-shadow:0 0 8px 2px rgba(255,235,180,0.9); }
-  header.top h1{
-    font-size:clamp(30px,4vw,44px);
-    font-weight:600;
-    margin:0 0 12px;
-    max-width:640px;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.12), 0 0 26px rgba(255,232,180,0.35);
-  }
-  header.top p.lead{
-    font-size:16px;
-    max-width:560px;
-    color:rgba(255,255,255,0.9);
-    margin:0;
-  }
+    /* ---------- Header ---------- */
+    header.top {
+      background:
+        linear-gradient(120deg, rgba(255,255,255,0) 40%, rgba(255,244,214,0.55) 50%, rgba(255,255,255,0) 60%),
+        linear-gradient(135deg, #6E4E12 0%, #B8892E 32%, #F0C766 52%, #C6941F 68%, #7A5A18 100%);
+      background-size: 220% 220%, 100% 100%;
+      background-position: 0% 0%, 0% 0%;
+      animation: goldSheen 7s ease-in-out infinite;
+      color: #fff;
+      padding: 32px 24px 64px;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
 
-  /* ---------- Shell / card ---------- */
-  .shell{
-    max-width:900px;
-    margin:-42px auto 0;
-    padding:0 24px;
-    position:relative;
-    z-index:3;
-    width:100%;
-  }
-  .card{
-    background:var(--paper);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    border:1px solid var(--line);
-    padding:32px;
-    margin-bottom:24px;
-    max-width:100%;
-    overflow:hidden;
-  }
+    @keyframes goldSheen {
+      0%   { background-position: -40% -40%, 0% 0%; }
+      50%  { background-position: 140% 140%, 0% 0%; }
+      100% { background-position: -40% -40%, 0% 0%; }
+    }
 
-  /* ---------- Scale legend ---------- */
-  .legend{
-    display:flex;
-    gap:0;
-    border-radius:10px;
-    overflow:hidden;
-    border:1px solid var(--line);
-    margin-top:18px;
-  }
-  .legend .seg{
-    flex:1;
-    padding:12px 8px;
-    text-align:center;
-    font-size:12px;
-    border-right:1px solid var(--line);
-  }
-  .legend .seg:last-child{border-right:none;}
-  .legend .num{ font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600; display:block; margin-bottom:2px;}
-  .legend .seg:nth-child(1){ background:#FDEDE8; color:#B4472B;}
-  .legend .seg:nth-child(2){ background:#FCF3E7; color:#9B7423;}
-  .legend .seg:nth-child(3){ background:#FAF3DC; color:#8A7423;}
-  .legend .seg:nth-child(4){ background:#F6EAC4; color:#8F6E1F;}
-  .legend .seg:nth-child(5){ background:#F1E2B8; color:#7A5A18;}
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
 
-  /* ---------- Intake grid ---------- */
-  .intake-title{
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:18px;
-  }
-  .step-mark{
-    width:26px;height:26px;border-radius:8px;
-    background:var(--ink); color:#fff;
-    font-family:'IBM Plex Mono',monospace; font-size:12px;
-    display:flex; align-items:center; justify-content:center;
-    flex:none;
-  }
-  .intake-title h2{ font-size:19px; margin:0; }
-  .intake-title span.sub{ display:block; font-size:12.5px; color:var(--slate); font-weight:400; margin-top:2px; font-family:'Inter',sans-serif;}
+    .logo-row img {
+      height: 44px;
+      width: auto;
+      max-width: 100%;
+      display: block;
+      filter: brightness(0) invert(1);
+    }
 
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:16px;
-  }
-  .field{ display:flex; flex-direction:column; gap:6px; min-width:0; }
-  .field.full{ grid-column:1 / -1; }
-  .field label{
-    font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em;
-    color:var(--slate);
-  }
-  .field input, .field select{
-    border:1.5px solid var(--line);
-    border-radius:9px;
-    padding:11px 12px;
-    font-size:14.5px;
-    font-family:'Inter',sans-serif;
-    color:var(--ink);
-    background:#fff;
-    transition:border-color .15s ease, box-shadow .15s ease;
-    width:100%;
-    max-width:100%;
-  }
-  .field input:focus, .field select:focus{
-    outline:none;
-    border-color:var(--teal);
-    box-shadow:0 0 0 3px rgba(184,137,46,0.18);
-  }
-  .anon-note{
-    margin-top:16px;
-    display:flex; gap:10px;
-    background:var(--mist);
-    border:1px dashed var(--line);
-    border-radius:10px;
-    padding:12px 14px;
-    font-size:13px;
-    color:var(--slate);
-  }
+    header.top::before {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 0 40px rgba(255,230,170,0.25);
+      pointer-events: none;
+    }
 
-  /* ---------- Section (role) ---------- */
-  .role-section{ display:none; }
-  .role-section.active{ display:block; }
+    header.top::after {
+      content: "";
+      position: absolute;
+      right: 20px;
+      bottom: -140px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.14);
+      pointer-events: none;
+    }
 
-  .section-head{
-    display:flex; align-items:center; justify-content:space-between;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:6px;
-  }
-  .section-head h2{ font-size:20px; margin:0; }
-  .role-tag{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
-    color:var(--teal-deep);
-    background:var(--mist);
-    border:1px solid var(--line);
-    padding:5px 10px;
-    border-radius:100px;
-    white-space:nowrap;
-  }
-  .group-label{
-    display:flex; align-items:center; gap:10px;
-    margin:26px 0 12px;
-  }
-  .group-label .bar{ width:20px; height:3px; background:var(--coral); border-radius:2px; flex:none;}
-  .group-label.subj .bar{ background:var(--teal); }
-  .group-label h3{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; margin:0; color:var(--ink); }
-  .group-label .count{ font-size:12px; color:var(--slate); }
+    .top-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
 
-  .q-row{
-    display:grid;
-    grid-template-columns:1fr auto;
-    align-items:center;
-    gap:16px;
-    padding:14px 0;
-    border-bottom:1px solid var(--line);
-  }
-  .q-row:last-child{ border-bottom:none; }
-  .q-text{ font-size:14.5px; min-width:0; }
-  .q-num{
-    font-family:'IBM Plex Mono',monospace;
-    color:var(--slate);
-    font-size:12px;
-    margin-right:8px;
-  }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,241,204,0.45);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+    }
 
-  .rate{
-    display:flex;
-    border:1.5px solid var(--line);
-    border-radius:9px;
-    overflow:hidden;
-    flex:none;
-  }
-  .rate input{ display:none; }
-  .rate label{
-    width:38px; height:36px;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:13px; font-weight:600;
-    color:var(--slate);
-    cursor:pointer;
-    border-right:1px solid var(--line);
-    background:#fff;
-    transition:background .12s ease,color .12s ease;
-  }
-  .rate label:last-child{ border-right:none; }
-  .rate input:checked + label{
-    background:var(--teal);
-    color:#fff;
-  }
-  .rate label:hover{ background:var(--mist); }
+    .eyebrow .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #FFF3D0;
+      box-shadow: 0 0 8px 2px rgba(255,235,180,0.9);
+    }
 
-  .comment-box{ margin-top:22px; }
-  .comment-box label{
-    font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em;
-    color:var(--slate);
-    display:block; margin-bottom:8px;
-  }
-  textarea{
-    width:100%;
-    border:1.5px solid var(--line);
-    border-radius:10px;
-    padding:12px 14px;
-    font-family:'Inter',sans-serif;
-    font-size:14px;
-    resize:vertical;
-    min-height:74px;
-    max-width:100%;
-  }
-  textarea:focus{ outline:none; border-color:var(--teal); box-shadow:0 0 0 3px rgba(184,137,46,0.18);}
+    header.top h1 {
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 600;
+      margin: 0 0 12px;
+      max-width: 640px;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.12), 0 0 26px rgba(255,232,180,0.35);
+    }
 
-  .placeholder-note{
-    display:none;
-    text-align:center;
-    padding:30px 10px;
-    color:var(--slate);
-    font-size:14px;
-  }
-  .placeholder-note.active{ display:block; }
+    header.top p.lead {
+      font-size: 16px;
+      max-width: 560px;
+      color: rgba(255,255,255,0.9);
+      margin: 0;
+    }
 
-  .gen-card .section-head h2{ font-size:18px; }
+    /* ---------- Shell / Card ---------- */
+    .shell {
+      max-width: 900px;
+      margin: -42px auto 0;
+      padding: 0 24px;
+      position: relative;
+      z-index: 3;
+      width: 100%;
+    }
 
-  .submit-bar{
-    display:flex; align-items:center; justify-content:space-between;
-    gap:16px; flex-wrap:wrap;
-  }
-  .submit-bar p{ font-size:12.5px; color:var(--slate); margin:0; max-width:380px; }
-  button.submit{
-    background: linear-gradient(135deg,#8F6A1F,#D9A429 55%,#8F6A1F);
-    color:#fff;
-    border:none;
-    padding:13px 26px;
-    font-family:'Inter',sans-serif;
-    font-weight:600;
-    font-size:14.5px;
-    border-radius:10px;
-    cursor:pointer;
-    transition:filter .15s ease, transform .1s ease;
-    white-space:nowrap;
-  }
-  button.submit:hover{ filter:brightness(1.08); }
-  button.submit:active{ transform:scale(0.98); }
-  .success-banner{
-  display:none;
-  align-items:center;
-  gap:10px;
-  background:#F1E2B8;
-  border:1px solid var(--teal);
-  color:var(--teal-deep);
-  border-radius:10px;
-  padding:12px 16px;
-  font-size:13.5px;
-  font-weight:600;
-  margin-bottom:24px;
-}
-.success-banner.active{ display:flex; }
+    .card {
+      background: var(--paper);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      padding: 32px;
+      margin-bottom: 24px;
+      max-width: 100%;
+      overflow: hidden;
+    }
 
-  footer{
-    max-width:900px;
-    margin:0 auto;
-    padding:0 24px;
-    text-align:center;
-    font-size:12px;
-    color:var(--slate);
-  }
+    /* ---------- Scale Legend ---------- */
+    .legend {
+      display: flex;
+      gap: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      margin-top: 18px;
+    }
 
-  @media (max-width:640px){
-    .grid{ grid-template-columns:1fr; }
-    .q-row{ grid-template-columns:1fr; }
-    .rate{ justify-self:stretch; width:100%; }
-    .rate label{ flex:1; }
-    header.top{ padding:28px 18px 56px; }
-    .card{ padding:20px; }
-    .shell{ padding:0 14px; margin-top:-32px; }
-    footer{ padding:0 14px; }
-  }
+    .legend .seg {
+      flex: 1;
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 12px;
+      border-right: 1px solid var(--line);
+    }
 
-  @media (max-width:400px){
-    header.top h1{ font-size:24px; }
-    header.top p.lead{ font-size:14px; }
-    .logo-row img{ height:36px; }
-    .card{ padding:16px; }
-    .step-mark{ width:22px; height:22px; font-size:11px; }
-    .intake-title h2{ font-size:17px; }
-    .rate label{ height:40px; font-size:12px; }
-    .submit-bar{ flex-direction:column; align-items:stretch; }
-    button.submit{ width:100%; text-align:center; }
-    .legend{ flex-wrap:wrap; }
-    .legend .seg{ flex:1 1 33%; border-bottom:1px solid var(--line); }
-  }
+    .legend .seg:last-child { border-right: none; }
+    .legend .num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 18px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .legend .seg:nth-child(1) { background: #FDEDE8; color: #B4472B; }
+    .legend .seg:nth-child(2) { background: #FCF3E7; color: #9B7423; }
+    .legend .seg:nth-child(3) { background: #FAF3DC; color: #8A7423; }
+    .legend .seg:nth-child(4) { background: #F6EAC4; color: #8F6E1F; }
+    .legend .seg:nth-child(5) { background: #F1E2B8; color: #7A5A18; }
 
-  @media (prefers-reduced-motion: reduce){
-    *{ transition:none !important; }
-    header.top{ animation:none !important; }
-  }
-</style>
+    /* ---------- Intake Grid ---------- */
+    .intake-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .step-mark {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+    }
+
+    .intake-title h2 { font-size: 19px; margin: 0; }
+    .intake-title span.sub {
+      display: block;
+      font-size: 12.5px;
+      color: var(--slate);
+      font-weight: 400;
+      margin-top: 2px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    .field label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--slate);
+    }
+
+    .field input, .field select {
+      border: 1.5px solid var(--line);
+      border-radius: 9px;
+      padding: 11px 12px;
+      font-size: 14.5px;
+      font-family: 'Inter', sans-serif;
+      color: var(--ink);
+      background: #fff;
+      transition: border-color .15s ease, box-shadow .15s ease;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .field input:focus, .field select:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(184,137,46,0.18);
+    }
+
+    .anon-note {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      background: var(--mist);
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--slate);
+    }
+
+    /* ---------- Section (Role) ---------- */
+    .role-section { display: none; }
+    .role-section.active { display: block; }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .section-head h2 { font-size: 20px; margin: 0; }
+    .role-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal-deep);
+      background: var(--mist);
+      border: 1px solid var(--line);
+      padding: 5px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .group-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 26px 0 12px;
+    }
+
+    .group-label .bar {
+      width: 20px;
+      height: 3px;
+      background: var(--coral);
+      border-radius: 2px;
+      flex: none;
+    }
+
+    .group-label.subj .bar { background: var(--teal); }
+    .group-label h3 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0;
+      color: var(--ink);
+    }
+    .group-label .count { font-size: 12px; color: var(--slate); }
+
+    .q-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .q-row:last-child { border-bottom: none; }
+    .q-text { font-size: 14.5px; min-width: 0; }
+    .q-num {
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--slate);
+      font-size: 12px;
+      margin-right: 8px;
+    }
+
+    .rate {
+      display: flex;
+      border: 1.5px solid var(--line);
+      border-radius: 9px;
+      overflow: hidden;
+      flex: none;
+    }
+
+    .rate input { display: none; }
+    .rate label {
+      width: 38px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate);
+      cursor: pointer;
+      border-right: 1px solid var(--line);
+      background: #fff;
+      transition: background .12s ease, color .12s ease;
+    }
+
+    .rate label:last-child { border-right: none; }
+    .rate input:checked + label {
+      background: var(--teal);
+      color: #fff;
+    }
+    .rate label:hover { background: var(--mist); }
+
+    .comment-box { margin-top: 22px; }
+    .comment-box label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--slate);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      resize: vertical;
+      min-height: 74px;
+      max-width: 100%;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(184,137,46,0.18);
+    }
+
+    .placeholder-note {
+      display: none;
+      text-align: center;
+      padding: 30px 10px;
+      color: var(--slate);
+      font-size: 14px;
+    }
+    .placeholder-note.active { display: block; }
+
+    .gen-card .section-head h2 { font-size: 18px; }
+
+    .submit-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .submit-bar p {
+      font-size: 12.5px;
+      color: var(--slate);
+      margin: 0;
+      max-width: 380px;
+    }
+
+    button.submit {
+      background: linear-gradient(135deg, #8F6A1F, #D9A429 55%, #8F6A1F);
+      color: #fff;
+      border: none;
+      padding: 13px 26px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14.5px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: filter .15s ease, transform .1s ease;
+      white-space: nowrap;
+    }
+
+    button.submit:hover { filter: brightness(1.08); }
+    button.submit:active { transform: scale(0.98); }
+
+    .success-banner {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: #F1E2B8;
+      border: 1px solid var(--teal);
+      color: var(--teal-deep);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .success-banner.active { display: flex; }
+
+    footer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--slate);
+    }
+
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+      .q-row { grid-template-columns: 1fr; }
+      .rate { justify-self: stretch; width: 100%; }
+      .rate label { flex: 1; }
+      header.top { padding: 28px 18px 56px; }
+      .card { padding: 20px; }
+      .shell { padding: 0 14px; margin-top: -32px; }
+      footer { padding: 0 14px; }
+    }
+
+    @media (max-width: 400px) {
+      header.top h1 { font-size: 24px; }
+      header.top p.lead { font-size: 14px; }
+      .logo-row img { height: 36px; }
+      .card { padding: 16px; }
+      .step-mark { width: 22px; height: 22px; font-size: 11px; }
+      .intake-title h2 { font-size: 17px; }
+      .rate label { height: 40px; font-size: 12px; }
+      .submit-bar { flex-direction: column; align-items: stretch; }
+      button.submit { width: 100%; text-align: center; }
+      .legend { flex-wrap: wrap; }
+      .legend .seg { flex: 1 1 33%; border-bottom: 1px solid var(--line); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+      header.top { animation: none !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -416,7 +526,8 @@
 </header>
 
 <div class="shell">
-<div id="successBanner" class="success-banner">✅ Evaluation submitted — this form has been cleared so you can submit another.</div>
+  <div id="successBanner" class="success-banner">✅ Evaluation submitted — this form has been cleared so you can submit another.</div>
+  
   <!-- INTAKE -->
   <div class="card">
     <div class="intake-title">
@@ -485,7 +596,7 @@
       </div>
     </div>
 
-    <div class="anon-note">🔒 Responses are confidential. P&C and CEO and PRESIDENT will only  see aggregated, anonymized scores per employee.</div>
+    <div class="anon-note">🔒 Responses are confidential. P&C and CEO and PRESIDENT will only see aggregated, anonymized scores per employee.</div>
   </div>
 
   <!-- RATING SCALE LEGEND -->
@@ -602,7 +713,7 @@
       <div class="comment-box"><label>Open comment — Head Dentist / Branch Head</label><textarea placeholder="Additional observations…"></textarea></div>
     </div>
 
-   <!-- District Manager -->
+    <!-- District Manager -->
     <div class="role-section" data-role="districtmgr">
       <div class="section-head"><h2>District Manager</h2><span class="role-tag">Multi-branch oversight</span></div>
 
@@ -686,7 +797,7 @@
       <div class="comment-box"><label>Open comment — Massage Therapist</label><textarea placeholder="Additional observations…"></textarea></div>
     </div>
 
-    <!-- Other -->
+    <!-- Other Position -->
     <div class="role-section" data-role="other">
       <div class="section-head"><h2>Other Position</h2><span class="role-tag">General only</span></div>
       <p style="font-size:14px;color:var(--slate);margin:8px 0 0;">No role-specific rubric is defined yet for this position. Only the General questions below will be scored for this evaluation.</p>
@@ -712,7 +823,6 @@
       <button class="submit" type="button" id="submitBtn" onclick="submitEvaluation()">Submit Evaluation →</button>
     </div>
   </div>
-
 </div>
 
 <footer>
@@ -720,48 +830,341 @@
 </footer>
 
 <script>
-  // 1. In Make.com, create a scenario starting with a "Webhooks > Custom webhook" module.
-  // 2. Copy the generated webhook URL and paste it below, replacing the placeholder.
+  // 1. Point to your active Google Apps Script web app URL
   var WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxgBiSQtzG4Y1frIJvqO-xmTM-BmLjaicndncAf-gKYZ1w_7eHnlgSxrVLjY1Mfm0I6aw/exec";
 
-  var EMPLOYEES = [{"name": "ALCANTARA, FITZ JERARD EMMANUEL CAÑA", "branch": "Alabang Festival Mall", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CAYETANO, STANLEY LAVADIA", "branch": "Alabang Festival Mall", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LEDESMA, MATTHEW PHILIP MANLICLIC", "branch": "Alabang Festival Mall", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LADIANA, ALLIYAH ANNE DAOS", "branch": "Alabang Festival Mall", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "MERHAN, MARY JOYCE CATARINING", "branch": "Alabang Festival Mall", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "ANTONIO, LORRAINE BAUTISTA", "branch": "Alabang Festival Mall", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "BANOG, RITCHELL GARCIA", "branch": "Alabang Festival Mall", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PARAISO, ARLYN SONGALIA", "branch": "Alabang Festival Mall", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "SANTOS, MAUREEN FATIMA MALINAO", "branch": "Alabang Festival Mall", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "AGUTO, MA. KHRISNA CIELO", "branch": "Alimall Dentalis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BAUN, MARIANNE MIKA BARSAGA", "branch": "Alimall Dentalis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LAPU-OS, SHIELA ARJONA", "branch": "Alimall Dentalis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LIBRANDO, NAICIE SOLIVEN", "branch": "Alimall Dentalis", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "MAGAUAY, CHRISTINE JOY BAYOG", "branch": "Alimall Dentalis", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "ANGELES, ILERIE JOY N/A", "branch": "Alimall Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "BAYNITO, VIC REDADO", "branch": "Alimall Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "GIMOTO, MICHELLE FANCUBILA", "branch": "Alimall Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PARTORIZA,, FRANCHESKA LOUIS N/A", "branch": "Alimall Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RILLES - UBANA, MONA ROSE HERRADURA", "branch": "Alimall Dentalis", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "CAPULE, JODALE DELA CRUZ", "branch": "Ayala Vertis North", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "GUEVARRA, JANET JEAN AMORIN", "branch": "Ayala Vertis North", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "MORALES, JANET SAN PEDRO", "branch": "Ayala Vertis North", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "RIVERA, AARON CHRISTIAN LARIN", "branch": "Ayala Vertis North", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TOLENTINO, JAN MATTHEW FONTAMILLAS", "branch": "Ayala Vertis North", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "IRENEO, MIKAELA MAE VILLAFLOR", "branch": "Ayala Vertis North", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "LUAREZ, NELROSE JANE MONDEJAR", "branch": "Ayala Vertis North", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "PEREJA, PAULINE RODNEE ARELLANO", "branch": "Ayala Vertis North", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "CORALDE, JOHN RICHER TAYO", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "CRUZ, HONEYLEEN OCAMPO", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ESCAREZ, JOMEL SANTOS", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "MAZO, RUBY MONERA", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "OBEÑA, MA. KRIZELL YVIRELEEN BERNARDO", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ORENSE, FHIEL SARMIENTO", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RAMA, JOLINA RAE MONTIBON", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "SANCHEZ, GRACE CANAY", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "YANGA, SABRINA NICOLE QUIA", "branch": "Ayala Vertis North", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ESPINO, EILENE RACHEL TAN", "branch": "Ayala Vertis North", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "ACUÑA, EMILIO TALAN", "branch": "BGC Market-Market", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "APOSTOL, SHERICA JOY CRUZ", "branch": "BGC Market-Market", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BONIFACIO, EVA FLORES", "branch": "BGC Market-Market", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "DE DIOS, THEA BIANCA MANUEL", "branch": "BGC Market-Market", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "SALAZAR, RAYMOND ARNEL ESTACIO", "branch": "BGC Market-Market", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BAQUE, EDERLY CAIBOG", "branch": "BGC Market-Market", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "NALOG, DIANA MAE SIDOL", "branch": "BGC Market-Market", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "OBORDO, LEONORA EMOY", "branch": "BGC Market-Market", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "ALBARICO, LOURMELYN PAGUNSAN", "branch": "BGC Market-Market", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "CORALDE, JOHN FRITZ TAYO", "branch": "BGC Market-Market", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DAIZ, RASHIDA HADJIROL", "branch": "BGC Market-Market", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RAMILO, MEIVELIN KHRISTLE CALLUENG", "branch": "BGC Market-Market", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TABERNERO, EURICA ATHENA NOMBRADO", "branch": "BGC Market-Market", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TAYAG, AUDRA MARGARITA DE GUZMAN", "branch": "BGC Market-Market", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "ANGELES, MA. WINSLIN DESIDERIO", "branch": "Eastwood Libis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "VELASQUEZ, ALANIS CATIPAN", "branch": "Eastwood Libis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "VILCHEZ, JUDY ANNE FERNANDEZ", "branch": "Eastwood Libis", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "ASCAÑO, ANN MELODY CRUZ", "branch": "Eastwood Libis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TECRUZ, KAYE RIVERA", "branch": "Eastwood Libis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ANGELES, LOU JUSTHINE SANTIAGO", "branch": "Gateway Cubao", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BERNARDO, ALBERT CYRIL GALMAN", "branch": "Gateway Cubao", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "GALVEZ, JAZREENE KYLA FABRE", "branch": "Gateway Cubao", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "VALERO, JOHN VINCENT SAN JUAN", "branch": "Gateway Cubao", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "ANSIBOY, NICOLE JOY BERAQUIT", "branch": "Gateway Cubao", "position": "CLINIC RELATION SPECIALIST", "role": "crs"}, {"name": "MIGUEL, PIA SUPAN", "branch": "Gateway Cubao", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "BAUTISTA, JENNIFER DELOS SANTOS", "branch": "Gateway Cubao", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "ACOYMO, JERIMAE JOCOSOL", "branch": "Gateway Cubao", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "CEZAR, PAULINE VIANCA ORLANDA", "branch": "Gateway Cubao", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TIGAON, RUBY JANE DOMINGO", "branch": "Gateway Cubao", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "VILLANUEVA, DI ANNE FALCO", "branch": "Gateway Cubao", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DAUS, KRYSTAL KAYE BARIA", "branch": "Gateway Cubao", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "RAMOS, RON EROLD GARCIA", "branch": "Gateway Cubao", "position": "UTILITY", "role": "utility"}, {"name": "MAMARUBA, ANA JOHANIFAH DIMAPORO", "branch": "Head Office", "position": "ACCOUNTING SPECIALIST - AP", "role": "other"}, {"name": "CAPONPON, JOSEPH LESTER DELAS ALAS", "branch": "Head Office", "position": "ADMIN ASSISTANT", "role": "crs"}, {"name": "GALVANO, JOY CORVERA", "branch": "Head Office", "position": "ADMIN ASSISTANT", "role": "crs"}, {"name": "DE LEON, HANNAH GABRIELLI", "branch": "Head Office", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "GONZALES, EILASOR BENITEZ", "branch": "Head Office", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "MENDOZA, ANGELA BERNIE CAMARA", "branch": "Head Office", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "APOSTOL, RUEL PIERRE", "branch": "Head Office", "position": "CHIEF EXECUTIVE OFFICER", "role": "other"}, {"name": "LUMABAS, JAMES AARON CABUENAS", "branch": "Head Office", "position": "CHIEF OF STAFF", "role": "other"}, {"name": "AMADO, JOHN CHRISTIAN ESTRADA", "branch": "Head Office", "position": "COMPANY DRIVER", "role": "utility"}, {"name": "BAUTISTA JR, NORBERTO TUBALE", "branch": "Head Office", "position": "COMPANY DRIVER", "role": "utility"}, {"name": "DEAUNA, EMMANUEL RAYOS", "branch": "Head Office", "position": "COMPANY DRIVER", "role": "utility"}, {"name": "ESCOSIA, RICKY BOY ORIAN", "branch": "Head Office", "position": "COMPANY DRIVER", "role": "utility"}, {"name": "CABILLA, JAMES DAVID DANCEL", "branch": "Head Office", "position": "CONTENT & INTERNAL MARKETING OFFICER", "role": "other"}, {"name": "PERIN, DOMINIC DEJITO", "branch": "Head Office", "position": "CONTENT & INTERNAL MARKETING OFFICER", "role": "other"}, {"name": "CUSI, MATTHEW LORENZO LUNA", "branch": "Head Office", "position": "CREATIVE MEDIA MANAGER", "role": "other"}, {"name": "ANTONIO, MARIA DELMAR DELAS ALAS", "branch": "Head Office", "position": "CUSTOMER SERVICE CHAMPION", "role": "crs"}, {"name": "REYES, JOANNA ARRIESGADO", "branch": "Head Office", "position": "CUSTOMER SERVICE CHAMPION", "role": "crs"}, {"name": "JAVIER, ROMMEL BURGOS", "branch": "Head Office", "position": "DENTAL TECHNICIAN", "role": "dse"}, {"name": "ROXAS, MA MICHAELLA PEÑALOSA", "branch": "Head Office", "position": "EXECUTIVE ASSISTANT", "role": "other"}, {"name": "DE ASAS, MARICHU SALGADO", "branch": "Head Office", "position": "GENERAL MANAGER / CHIEF OF CLINICS", "role": "branchhead"}, {"name": "LOYOLA, LEINA BERNALENE MORENA", "branch": "Head Office", "position": "GRAPHIC ARTIST", "role": "other"}, {"name": "ACUÑA, MELINDA MAÑALAC", "branch": "Head Office", "position": "HEAD DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "BULURAN, FRANCIS ARGIE TAPIC", "branch": "Head Office", "position": "HEAD OF DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "CLEMENTE, AERONN GUTIERREZ", "branch": "Head Office", "position": "HEAD OF PEOPLE & CULTURE", "role": "other"}, {"name": "ESCLEBA, JHULLIE ANNE VILLESTAR", "branch": "Head Office", "position": "HR ADMIN ASSISTANT", "role": "other"}, {"name": "BADILLA, JOHN DANIEL RICO", "branch": "Head Office", "position": "IT ASSOCIATE", "role": "other"}, {"name": "VALENCIA, AXCEL DAVE MANLUTAC", "branch": "Head Office", "position": "IT OFFICER", "role": "other"}, {"name": "PATAL, RICHARD OLARTE", "branch": "Head Office", "position": "LIAISON OFFICER", "role": "other"}, {"name": "CARATAO, JOVEL FLORES", "branch": "Head Office", "position": "MAINTENANCE OFFICER", "role": "utility"}, {"name": "LOPEZ, LOUISE ANN BOLANTE", "branch": "Head Office", "position": "MARKETING ASSOCIATE", "role": "other"}, {"name": "PANDUNGAN-ARAZA, MARIELLE ANN BESANA", "branch": "Head Office", "position": "MARKETING HEAD OF THE PRESIDENT", "role": "other"}, {"name": "CORDERO, MARIA CECILIA BENITO", "branch": "Head Office", "position": "OPERATIONS MANAGER", "role": "districtmgr"}, {"name": "PANDUMA, MARY COCALAINE ORUGA", "branch": "Head Office", "position": "PATIENT EXPERIENCE AND SERVICE EXCELLENCE MANAGER", "role": "other"}, {"name": "GAMBOA, ERICKA PAGADOR", "branch": "Head Office", "position": "PEOPLE & CULTURE ASSOCIATE", "role": "other"}, {"name": "GUTIERREZ, JAYSON GREG GABRIEL", "branch": "Head Office", "position": "PEOPLE & CULTURE SUPERVISOR", "role": "other"}, {"name": "REYES, ALYSSA MAE YAUDER", "branch": "Head Office", "position": "PR & SPECIAL PROJECTS ASSOCIATE", "role": "other"}, {"name": "DELAS ALAS, RALPH FIGAROA", "branch": "Head Office", "position": "PRESIDENT", "role": "other"}, {"name": "PILI, PRECIOUS GEM ESTABILLO", "branch": "Head Office", "position": "REGULATORY COMPLIANCE OFFICER", "role": "other"}, {"name": "BUENAVISTA, MARYHETTE PRADO", "branch": "Head Office", "position": "SENIOR ACCOUNTING SPECIALIST I", "role": "other"}, {"name": "ILAGAN, ROXANNE RIVERA", "branch": "Head Office", "position": "SENIOR ACCOUNTING SPECIALIST I", "role": "other"}, {"name": "ENRIQUEZ, MARILYN CUENO", "branch": "Head Office", "position": "UTILITY", "role": "utility"}, {"name": "RULLAN, JACOB SAPAFO", "branch": "Head Office", "position": "UTILITY", "role": "utility"}, {"name": "TIEMSEN, GERON BUENAVENTURA", "branch": "Laboratory", "position": "DENTAL CAD TECHNICIAN", "role": "dse"}, {"name": "ABES, CHESEA MAE AGLANAO", "branch": "Laboratory", "position": "DENTAL TECHNICIAN", "role": "dse"}, {"name": "MACABURAS, HOWARD NONE", "branch": "Laboratory", "position": "DENTAL TECHNICIAN", "role": "dse"}, {"name": "NAZARREA, MICHAEL CHRISTIAN SARCENA", "branch": "Laboratory", "position": "JUNIOR DENTAL TECHNICIAN", "role": "dse"}, {"name": "DEL ROSARIO, BHEN JHUR MIRANDA", "branch": "Laboratory", "position": "LABORATORY MANAGER", "role": "other"}, {"name": "ARELLANO, GAILE CASTILLO", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "BONCAJES, JASFER JAY FERNANDEZ", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "DELA CRUZ, KAY ILARINA", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "MARTINEZ, ANGELA NOELLE", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "MARUYAMA, KURT ANGELO GONZALES", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "PIMENTEL, SHARIE FAYE BOBILA", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "SADANG, MADELEINE JO DOMINGO", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TABIOS, KRISTINE GAYLE SHOUDER", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "YUNON, VINCENT RAPHAEL ARMENDI", "branch": "One Ayala Neo", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TARINE, JUSTINE LALAINE ALBA", "branch": "One Ayala Neo", "position": "BARISTA", "role": "barista"}, {"name": "ABES, ROSEMARIE MONTEROZO", "branch": "One Ayala Neo", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "CALIBO, JESSA KRISA ESMALA", "branch": "One Ayala Neo", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "DORADO, DANIELLA LABIANO", "branch": "One Ayala Neo", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "PELARCO, JONELYN DELGADO", "branch": "One Ayala Neo", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "TAPAYAN, JELLIE FARILLON", "branch": "One Ayala Neo", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "MACATANGAY, RODERICK BAUTISTA", "branch": "One Ayala Neo", "position": "COMPANY DRIVER", "role": "utility"}, {"name": "LABARDA, DANICA ANN VICTORE", "branch": "One Ayala Neo", "position": "CUSTODIAN", "role": "utility"}, {"name": "AMORANTO, NICOLE ANN TENORIO", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ARAGON, MAAN DENISSE MARTINEZ", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "AYSON, CHRISTIAN JAY PINEDA", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "COMBRAS, JENNIFER ILAGAN", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "COQUIA, JOHN RHEY ROGUEL", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "CRUZ, JOCELYN AYUSON", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "JAMMANG, LYN SHERLY ALIMUDDIN", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "JOMADIAO, WILBERT ARETAÑO", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "JULHANI, SHARIKA MAGSAYSAY", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "MARAY, MARK ANTHONY SAMSON", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "MOHAMMAD, ALFATRA ASARAIN", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "OFQUERIA, VICKLYN ILLUT", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "POLO, MARY GRACE CARLOS", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PORCALLA, PATRICK VAN LEEL", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PRAN, JOVELYN JAMISOLA", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TOLENTINO, ELIZABETH RAMOS", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "VARGAS, MARIVIC MIRANDA", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "VERDARA, DENNIS ANACION", "branch": "One Ayala Neo", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RONQUILLO, PRINCESS DIANA RODIL", "branch": "One Ayala Neo", "position": "EXECUTIVE ASSISTANT", "role": "other"}, {"name": "ESCUETA, DEAN MEGI ROVILLOS", "branch": "One Ayala Neo", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "BRIAGAS, CARL KENRICK CELLO", "branch": "One Ayala Neo", "position": "MARKETING ASSOCIATE", "role": "other"}, {"name": "CONCEPCION, JOHN REINZEL RONATO", "branch": "One Ayala Neo", "position": "MARKETING ASSOCIATE", "role": "other"}, {"name": "ENRIQUEZ, GENEROSO MERCADO", "branch": "One Ayala Neo", "position": "MARKETING ASSOCIATE", "role": "other"}, {"name": "DELA PENA, RAFAEL BALAJADIA", "branch": "One Ayala Neo", "position": "UTILITY", "role": "utility"}, {"name": "JUNIO, KATES NICOLE VIRAY", "branch": "Parqal", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "RANIDO, SHELAMAE ALCANTARA", "branch": "Parqal", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "SEGUENZA, JOANNE GERARDINE SARILLA", "branch": "Parqal", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TIMKANG, LIZETTE REYES", "branch": "Parqal", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "ALFARO, RONETH CUSTODIO", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "GERO, WULILDA BALASBAS", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "LANUZGA, GWYNETH ANN LUMBANG", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "MAGBANUA, RODEL LATOJA", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "REPARBOR, RYAN FELIZARIO", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "SUGUITAN, MARY LEIGH LOPEZ", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "VERGARA, BEVERLY ESPINO", "branch": "Parqal", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DUNGCA, ROMEO JUNIOR GRANADOS", "branch": "Parqal", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "BALANTIN, JEZREEL TARNATE", "branch": "Shaw", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CORDERO, JONAMEI CONDE", "branch": "Shaw", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TRIAS, MARIONE KAREN SAUCO", "branch": "Shaw", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CASTAÑEDA, CLAUDINE IANAH ROMERO", "branch": "Shaw", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "DIMACALI, CHARISSE FERNANDO", "branch": "Shaw", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "BANGUIH, SOFIA MOCADDAM", "branch": "Shaw", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DELA PENA, ARCHET N/A", "branch": "Shaw", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "GUILLERGAN, HAZEL ANNE COOLEEN HABLADO", "branch": "Shaw", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "GUTIERREZ, ANGELICA DORMIENDO", "branch": "Shaw", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "GADDI, FRANCIS RANZELLE DELOS REYES", "branch": "Shaw", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "BASILAN, ARVIN MONLEON", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CLAUDIO, RITCHELLE JOANNE TOLOSA", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "GODOY, GLESIRHYL PENTINIO", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "NEE-ESTUYE, MARISSA CABRERA", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "TORRES, JR., CLIYD RODERICK AGUIRRE", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "JAVIER, JOHN BERCILLA", "branch": "SM Fairview", "position": "ASSOCIATE DENTIST/ PART TIME", "role": "dentist"}, {"name": "ESTANISLAO, ZHARINA LUANGCO", "branch": "SM Fairview", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "VALES, NIÑA AIRA MARIE SANTIAGO", "branch": "SM Fairview", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "QUINTOS, ANGIE BANTILAN", "branch": "SM Fairview", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RONDINA, CHARYN SOLLANO", "branch": "SM Fairview", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TRASMAN̈O, ANNABEL TUMANENG", "branch": "SM Fairview", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PUAZO, ARABELLA NICOLE LABRADOR", "branch": "SM Fairview", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "PAMINTUAN, JENKINS BABAC", "branch": "SM Fairview", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "MONTEALEGRE, LHENERY CASTILLO", "branch": "SM North Dentalis", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "MARCOS, JANE AUDREY LOPIDO", "branch": "SM North Dentalis", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DOMINGUEZ, IMEEH JOYCE MORANA", "branch": "St. Lukes BGC", "position": "CLIENT RELATION SPECIALIST", "role": "crs"}, {"name": "DE VERA, APRIL JOY ORTIZ", "branch": "St. Lukes BGC", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "DE CASTRO, RACIEL ALVAREZ", "branch": "Sta Lucia", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LAGUARDIA, HAROLD DAULAT", "branch": "Sta Lucia", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LASAM, CERRE KYLNE PAGULAYAN", "branch": "Sta Lucia", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LAGO-BELVEZ, VERONICA TOLENTINO", "branch": "Sta Lucia", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "SANGGA, DIONA FE PANLAAN", "branch": "Sta Lucia", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "TESALONA, KYLA KATE BAGUIO", "branch": "Sta Lucia", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "BELLEN, REA ROSE VICENTE", "branch": "Sta Lucia", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "FLANDEZ, GELLY GASPAN", "branch": "Sta Lucia", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "MENDOZA, WILFREDO APOSTOL", "branch": "Sta Lucia", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "ARGETE, KENNY JOHN PARAS", "branch": "Winford Manila", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "CARAOS, JOSE LORENZO MENDIOLA", "branch": "Winford Manila", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "ROMAN, RALPH ADRIAN REYES", "branch": "Winford Manila", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "ZABALA, ROAN PATRICE DE GUZMAN", "branch": "Winford Manila", "position": "ASSOCIATE DENTIST", "role": "dentist"}, {"name": "LUYAHAN, SHAMEZ LYN REYES", "branch": "Winford Manila", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "PATALINGHOG, JOSIE ROSE CAROD", "branch": "Winford Manila", "position": "CLINIC RELATIONS SPECIALIST", "role": "crs"}, {"name": "DE LARA, TRACEY LIANNE CIPRIANO", "branch": "Winford Manila", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "RAFAEL, MARIA ANGELA SOLIMAN", "branch": "Winford Manila", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "TALENTO, JEMELINE GALLARDO", "branch": "Winford Manila", "position": "DENTAL SUPPORT EXPERT", "role": "dse"}, {"name": "UNTIVERO, MARRI FRENCHIZKA LOLENG", "branch": "Winford Manila", "position": "HEAD DENTIST", "role": "branchhead"}, {"name": "SANTOS, CLAREZ JOY CABAHUG", "branch": "Sta Lucia", "position": "SR. DISTRICT MANAGER", "role": "districtmgr"}, {"name": "SANTOS, CLAREZ JOY CABAHUG", "branch": "Gateway Cubao", "position": "SR. DISTRICT MANAGER", "role": "districtmgr"}, {"name": "SANTOS, CLAREZ JOY CABAHUG", "branch": "One Ayala Neo", "position": "SR. DISTRICT MANAGER", "role": "districtmgr"}, {"name": "SANTOS, CLAREZ JOY CABAHUG", "branch": "Eastwood Libis", "position": "SR. DISTRICT MANAGER", "role": "districtmgr"}, {"name": "SANTOS, CLAREZ JOY CABAHUG", "branch": "SM Fairview", "position": "SR. DISTRICT MANAGER", "role": "districtmgr"}, {"name": "SANTOS, CLAREZ JOY CABAHUG", "branch": "Shaw", "position": "SR. DISTRICT MANAGER", "role": "districtmgr"}, {"name": "RAMOS, CHRISTOFER AVEDANO", "branch": "Alabang Festival Mall", "position": "DISTRICT MANAGER", "role": "districtmgr"}, {"name": "RAMOS, CHRISTOFER AVEDANO", "branch": "BGC Market-Market", "position": "DISTRICT MANAGER", "role": "districtmgr"}, {"name": "RAMOS, CHRISTOFER AVEDANO", "branch": "Alimall Dentalis", "position": "DISTRICT MANAGER", "role": "districtmgr"}, {"name": "AGUINALDO, LYCA FIGUEROA", "branch": "Ayala Vertis North", "position": "DISTRICT MANAGER", "role": "districtmgr"}, {"name": "AGUINALDO, LYCA FIGUEROA", "branch": "Parqal", "position": "DISTRICT MANAGER", "role": "districtmgr"}, {"name": "AGUINALDO, LYCA FIGUEROA", "branch": "Winford Manila", "position": "DISTRICT MANAGER", "role": "districtmgr"}];
+  // ==========================================
+  // EMPLOYEE ROSTER (GROUPED BY BRANCH)
+  // ==========================================
+  var EMPLOYEES = [
+    // ------------------------------------------
+    // ALABANG FESTIVAL MALL
+    // ------------------------------------------
+    { name: "ALCANTARA, FITZ JERARD EMMANUEL CAÑA", branch: "Alabang Festival Mall", position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "CAYETANO, STANLEY LAVADIA",            branch: "Alabang Festival Mall", position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "LEDESMA, MATTHEW PHILIP MANLICLIC",     branch: "Alabang Festival Mall", position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "LADIANA, ALLIYAH ANNE DAOS",           branch: "Alabang Festival Mall", position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "MERHAN, MARY JOYCE CATARINING",        branch: "Alabang Festival Mall", position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "ANTONIO, LORRAINE BAUTISTA",           branch: "Alabang Festival Mall", position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "BANOG, RITCHELL GARCIA",               branch: "Alabang Festival Mall", position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "PARAISO, ARLYN SONGALIA",              branch: "Alabang Festival Mall", position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "SANTOS, MAUREEN FATIMA MALINAO",       branch: "Alabang Festival Mall", position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "RAMOS, CHRISTOFER AVEDANO",            branch: "Alabang Festival Mall", position: "DISTRICT MANAGER",            role: "districtmgr" },
 
- function setDefaultDate(){
-  var dateField = document.getElementById('dateSubmitted');
-  if(dateField){
-    var today = new Date();
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    var formatted = months[today.getMonth()] + ' ' + today.getDate() + ', ' + today.getFullYear();
-    dateField.value = formatted;
-    // Store an ISO version too, for the payload sent to the webhook.
-    var yyyy = today.getFullYear();
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var dd = String(today.getDate()).padStart(2, '0');
-    dateField.dataset.iso = yyyy + '-' + mm + '-' + dd;
+    // ------------------------------------------
+    // ALIMALL DENTALIS
+    // ------------------------------------------
+    { name: "AGUTO, MA. KHRISNA CIELO",             branch: "Alimall Dentalis",      position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "BAUN, MARIANNE MIKA BARSAGA",          branch: "Alimall Dentalis",      position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "LAPU-OS, SHIELA ARJONA",               branch: "Alimall Dentalis",      position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "LIBRANDO, NAICIE SOLIVEN",             branch: "Alimall Dentalis",      position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "MAGAUAY, CHRISTINE JOY BAYOG",         branch: "Alimall Dentalis",      position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "ANGELES, ILERIE JOY N/A",              branch: "Alimall Dentalis",      position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "BAYNITO, VIC REDADO",                  branch: "Alimall Dentalis",      position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "GIMOTO, MICHELLE FANCUBILA",           branch: "Alimall Dentalis",      position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "PARTORIZA,, FRANCHESKA LOUIS N/A",     branch: "Alimall Dentalis",      position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "RILLES - UBANA, MONA ROSE HERRADURA",  branch: "Alimall Dentalis",      position: "HEAD DENTIST",                role: "branchhead" },
+    { name: "RAMOS, CHRISTOFER AVEDANO",            branch: "Alimall Dentalis",      position: "DISTRICT MANAGER",            role: "districtmgr" },
+
+    // ------------------------------------------
+    // AYALA VERTIS NORTH
+    // ------------------------------------------
+    { name: "CAPULE, JODALE DELA CRUZ",             branch: "Ayala Vertis North",    position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "GUEVARRA, JANET JEAN AMORIN",          branch: "Ayala Vertis North",    position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "MORALES, JANET SAN PEDRO",             branch: "Ayala Vertis North",    position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "RIVERA, AARON CHRISTIAN LARIN",        branch: "Ayala Vertis North",    position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "TOLENTINO, JAN MATTHEW FONTAMILLAS",   branch: "Ayala Vertis North",    position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "IRENEO, MIKAELA MAE VILLAFLOR",        branch: "Ayala Vertis North",    position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "LUAREZ, NELROSE JANE MONDEJAR",        branch: "Ayala Vertis North",    position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "PEREJA, PAULINE RODNEE ARELLANO",      branch: "Ayala Vertis North",    position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "CORALDE, JOHN RICHER TAYO",            branch: "Ayala Vertis North",    position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "CRUZ, HONEYLEEN OCAMPO",               branch: "Ayala Vertis North",    position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "ESCAREZ, JOMEL SANTOS",                branch: "Ayala Vertis North",    position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "MAZO, RUBY MONERA",                    branch: "Ayala Vertis North",    position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "OBEÑA, MA. KRIZELL YVIRELEEN BERNARDO",branch: "Ayala Vertis North",    position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "ORENSE, FHIEL SARMIENTO",              branch: "Ayala Vertis North",    position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "RAMA, JOLINA RAE MONTIBON",            branch: "Ayala Vertis North",    position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "SANCHEZ, GRACE CANAY",                 branch: "Ayala Vertis North",    position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "YANGA, SABRINA NICOLE QUIA",           branch: "Ayala Vertis North",    position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "ESPINO, EILENE RACHEL TAN",            branch: "Ayala Vertis North",    position: "HEAD DENTIST",                role: "branchhead" },
+    { name: "AGUINALDO, LYCA FIGUEROA",             branch: "Ayala Vertis North",    position: "DISTRICT MANAGER",            role: "districtmgr" },
+
+    // ------------------------------------------
+    // BGC MARKET-MARKET
+    // ------------------------------------------
+    { name: "ACUÑA, EMILIO TALAN",                  branch: "BGC Market-Market",     position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "APOSTOL, SHERICA JOY CRUZ",            branch: "BGC Market-Market",     position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "BONIFACIO, EVA FLORES",                branch: "BGC Market-Market",     position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "DE DIOS, THEA BIANCA MANUEL",          branch: "BGC Market-Market",     position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "SALAZAR, RAYMOND ARNEL ESTACIO",       branch: "BGC Market-Market",     position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "BAQUE, EDERLY CAIBOG",                 branch: "BGC Market-Market",     position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "NALOG, DIANA MAE SIDOL",               branch: "BGC Market-Market",     position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "OBORDO, LEONORA EMOY",                 branch: "BGC Market-Market",     position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "ALBARICO, LOURMELYN PAGUNSAN",         branch: "BGC Market-Market",     position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "CORALDE, JOHN FRITZ TAYO",             branch: "BGC Market-Market",     position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "DAIZ, RASHIDA HADJIROL",               branch: "BGC Market-Market",     position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "RAMILO, MEIVELIN KHRISTLE CALLUENG",   branch: "BGC Market-Market",     position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "TABERNERO, EURICA ATHENA NOMBRADO",    branch: "BGC Market-Market",     position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "TAYAG, AUDRA MARGARITA DE GUZMAN",     branch: "BGC Market-Market",     position: "HEAD DENTIST",                role: "branchhead" },
+    { name: "RAMOS, CHRISTOFER AVEDANO",            branch: "BGC Market-Market",     position: "DISTRICT MANAGER",            role: "districtmgr" },
+
+    // ------------------------------------------
+    // EASTWOOD LIBIS
+    // ------------------------------------------
+    { name: "ANGELES, MA. WINSLIN DESIDERIO",       branch: "Eastwood Libis",        position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "VELASQUEZ, ALANIS CATIPAN",            branch: "Eastwood Libis",        position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "VILCHEZ, JUDY ANNE FERNANDEZ",         branch: "Eastwood Libis",        position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "ASCAÑO, ANN MELODY CRUZ",              branch: "Eastwood Libis",        position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "TECRUZ, KAYE RIVERA",                  branch: "Eastwood Libis",        position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "SANTOS, CLAREZ JOY CABAHUG",           branch: "Eastwood Libis",        position: "SR. DISTRICT MANAGER",        role: "districtmgr" },
+
+    // ------------------------------------------
+    // GATEWAY CUBAO
+    // ------------------------------------------
+    { name: "ANGELES, LOU JUSTHINE SANTIAGO",       branch: "Gateway Cubao",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "BERNARDO, ALBERT CYRIL GALMAN",        branch: "Gateway Cubao",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "GALVEZ, JAZREENE KYLA FABRE",          branch: "Gateway Cubao",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "VALERO, JOHN VINCENT SAN JUAN",        branch: "Gateway Cubao",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "ANSIBOY, NICOLE JOY BERAQUIT",         branch: "Gateway Cubao",         position: "CLINIC RELATION SPECIALIST",  role: "crs" },
+    { name: "BAUTISTA, JENNIFER DELOS SANTOS",      branch: "Gateway Cubao",         position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "MIGUEL, PIA SUPAN",                    branch: "Gateway Cubao",         position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "ACOYMO, JERIMAE JOCOSOL",              branch: "Gateway Cubao",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "CEZAR, PAULINE VIANCA ORLANDA",        branch: "Gateway Cubao",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "TIGAON, RUBY JANE DOMINGO",            branch: "Gateway Cubao",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "VILLANUEVA, DI ANNE FALCO",            branch: "Gateway Cubao",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "DAUS, KRYSTAL KAYE BARIA",             branch: "Gateway Cubao",         position: "HEAD DENTIST",                role: "branchhead" },
+    { name: "RAMOS, RON EROLD GARCIA",              branch: "Gateway Cubao",         position: "UTILITY",                     role: "utility" },
+    { name: "SANTOS, CLAREZ JOY CABAHUG",           branch: "Gateway Cubao",         position: "SR. DISTRICT MANAGER",        role: "districtmgr" },
+
+    // ------------------------------------------
+    // HEAD OFFICE
+    // ------------------------------------------
+    { name: "MAMARUBA, ANA JOHANIFAH DIMAPORO",     branch: "Head Office",           position: "ACCOUNTING SPECIALIST - AP",                  role: "other" },
+    { name: "CAPONPON, JOSEPH LESTER DELAS ALAS",   branch: "Head Office",           position: "ADMIN ASSISTANT",                             role: "crs" },
+    { name: "GALVANO, JOY CORVERA",                 branch: "Head Office",           position: "ADMIN ASSISTANT",                             role: "crs" },
+    { name: "DE LEON, HANNAH GABRIELLI",            branch: "Head Office",           position: "ASSOCIATE DENTIST",                           role: "dentist" },
+    { name: "GONZALES, EILASOR BENITEZ",            branch: "Head Office",           position: "ASSOCIATE DENTIST",                           role: "dentist" },
+    { name: "MENDOZA, ANGELA BERNIE CAMARA",        branch: "Head Office",           position: "ASSOCIATE DENTIST",                           role: "dentist" },
+    { name: "APOSTOL, RUEL PIERRE",                 branch: "Head Office",           position: "CHIEF EXECUTIVE OFFICER",                     role: "other" },
+    { name: "LUMABAS, JAMES AARON CABUENAS",        branch: "Head Office",           position: "CHIEF OF STAFF",                              role: "other" },
+    { name: "AMADO, JOHN CHRISTIAN ESTRADA",        branch: "Head Office",           position: "COMPANY DRIVER",                              role: "utility" },
+    { name: "BAUTISTA JR, NORBERTO TUBALE",         branch: "Head Office",           position: "COMPANY DRIVER",                              role: "utility" },
+    { name: "DEAUNA, EMMANUEL RAYOS",               branch: "Head Office",           position: "COMPANY DRIVER",                              role: "utility" },
+    { name: "ESCOSIA, RICKY BOY ORIAN",             branch: "Head Office",           position: "COMPANY DRIVER",                              role: "utility" },
+    { name: "CABILLA, JAMES DAVID DANCEL",          branch: "Head Office",           position: "CONTENT & INTERNAL MARKETING OFFICER",        role: "other" },
+    { name: "PERIN, DOMINIC DEJITO",                branch: "Head Office",           position: "CONTENT & INTERNAL MARKETING OFFICER",        role: "other" },
+    { name: "CUSI, MATTHEW LORENZO LUNA",           branch: "Head Office",           position: "CREATIVE MEDIA MANAGER",                      role: "other" },
+    { name: "ANTONIO, MARIA DELMAR DELAS ALAS",     branch: "Head Office",           position: "CUSTOMER SERVICE CHAMPION",                   role: "crs" },
+    { name: "REYES, JOANNA ARRIESGADO",             branch: "Head Office",           position: "CUSTOMER SERVICE CHAMPION",                   role: "crs" },
+    { name: "JAVIER, ROMMEL BURGOS",                branch: "Head Office",           position: "DENTAL TECHNICIAN",                           role: "dse" },
+    { name: "ROXAS, MA MICHAELLA PEÑALOSA",         branch: "Head Office",           position: "EXECUTIVE ASSISTANT",                         role: "other" },
+    { name: "DE ASAS, MARICHU SALGADO",             branch: "Head Office",           position: "GENERAL MANAGER / CHIEF OF CLINICS",          role: "branchhead" },
+    { name: "LOYOLA, LEINA BERNALENE MORENA",       branch: "Head Office",           position: "GRAPHIC ARTIST",                              role: "other" },
+    { name: "ACUÑA, MELINDA MAÑALAC",               branch: "Head Office",           position: "HEAD DENTAL SUPPORT EXPERT",                  role: "dse" },
+    { name: "BULURAN, FRANCIS ARGIE TAPIC",         branch: "Head Office",           position: "HEAD OF DENTAL SUPPORT EXPERT",               role: "dse" },
+    { name: "CLEMENTE, AERONN GUTIERREZ",           branch: "Head Office",           position: "HEAD OF PEOPLE & CULTURE",                    role: "other" },
+    { name: "ESCLEBA, JHULLIE ANNE VILLESTAR",      branch: "Head Office",           position: "HR ADMIN ASSISTANT",                          role: "other" },
+    { name: "BADILLA, JOHN DANIEL RICO",        branch: "Head Office",           position: "IT ASSOCIATE",                                  role: "other" },
+    { name: "VALENCIA, AXCEL DAVE MANLUTAC",        branch: "Head Office",           position: "IT OFFICER",                                  role: "other" },
+    { name: "PATAL, RICHARD OLARTE",                branch: "Head Office",           position: "LIAISON OFFICER",                             role: "other" },
+    { name: "CARATAO, JOVEL FLORES",                branch: "Head Office",           position: "MAINTENANCE OFFICER",                         role: "utility" },
+    { name: "LOPEZ, LOUISE ANN BOLANTE",            branch: "Head Office",           position: "MARKETING ASSOCIATE",                         role: "other" },
+    { name: "PANDUNGAN-ARAZA, MARIELLE ANN BESANA", branch: "Head Office",           position: "MARKETING HEAD OF THE PRESIDENT",             role: "other" },
+    { name: "CORDERO, MARIA CECILIA BENITO",        branch: "Head Office",           position: "OPERATIONS MANAGER",                          role: "districtmgr" },
+    { name: "PANDUMA, MARY COCALAINE ORUGA",        branch: "Head Office",           position: "PATIENT EXPERIENCE AND SERVICE EXCELLENCE MGR", role: "other" },
+    { name: "GAMBOA, ERICKA PAGADOR",               branch: "Head Office",           position: "PEOPLE & CULTURE ASSOCIATE",                  role: "other" },
+    { name: "GUTIERREZ, JAYSON GREG GABRIEL",       branch: "Head Office",           position: "PEOPLE & CULTURE SUPERVISOR",                 role: "other" },
+    { name: "REYES, ALYSSA MAE YAUDER",             branch: "Head Office",           position: "PR & SPECIAL PROJECTS ASSOCIATE",             role: "other" },
+    { name: "DELAS ALAS, RALPH FIGAROA",            branch: "Head Office",           position: "PRESIDENT",                                   role: "other" },
+    { name: "PILI, PRECIOUS GEM ESTABILLO",         branch: "Head Office",           position: "REGULATORY COMPLIANCE OFFICER",               role: "other" },
+    { name: "BUENAVISTA, MARYHETTE PRADO",          branch: "Head Office",           position: "SENIOR ACCOUNTING SPECIALIST I",              role: "other" },
+    { name: "ILAGAN, ROXANNE RIVERA",               branch: "Head Office",           position: "SENIOR ACCOUNTING SPECIALIST I",              role: "other" },
+    { name: "ENRIQUEZ, MARILYN CUENO",              branch: "Head Office",           position: "UTILITY",                                     role: "utility" },
+    { name: "RULLAN, JACOB SAPAFO",                 branch: "Head Office",           position: "UTILITY",                                     role: "utility" },
+
+    // ------------------------------------------
+    // LABORATORY
+    // ------------------------------------------
+    { name: "TIEMSEN, GERON BUENAVENTURA",          branch: "Laboratory",            position: "DENTAL CAD TECHNICIAN",       role: "dse" },
+    { name: "ABES, CHESEA MAE AGLANAO",             branch: "Laboratory",            position: "DENTAL TECHNICIAN",           role: "dse" },
+    { name: "MACABURAS, HOWARD NONE",               branch: "Laboratory",            position: "DENTAL TECHNICIAN",           role: "dse" },
+    { name: "NAZARREA, MICHAEL CHRISTIAN SARCENA",  branch: "Laboratory",            position: "JUNIOR DENTAL TECHNICIAN",    role: "dse" },
+    { name: "DEL ROSARIO, BHEN JHUR MIRANDA",       branch: "Laboratory",            position: "LABORATORY MANAGER",          role: "other" },
+
+    // ------------------------------------------
+    // ONE AYALA NEO
+    // ------------------------------------------
+    { name: "ARELLANO, GAILE CASTILLO",             branch: "One Ayala Neo",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "BONCAJES, JASFER JAY FERNANDEZ",       branch: "One Ayala Neo",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "DELA CRUZ, KAY ILARINA",               branch: "One Ayala Neo",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "MARTINEZ, ANGELA NOELLE",              branch: "One Ayala Neo",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "MARUYAMA, KURT ANGELO GONZALES",       branch: "One Ayala Neo",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "PIMENTEL, SHARIE FAYE BOBILA",         branch: "One Ayala Neo",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "SADANG, MADELEINE JO DOMINGO",         branch: "One Ayala Neo",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "TABIOS, KRISTINE GAYLE SHOUDER",       branch: "One Ayala Neo",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "YUNON, VINCENT RAPHAEL ARMENDI",       branch: "One Ayala Neo",         position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "TARINE, JUSTINE LALAINE ALBA",         branch: "One Ayala Neo",         position: "BARISTA",                     role: "barista" },
+    { name: "ABES, ROSEMARIE MONTEROZO",            branch: "One Ayala Neo",         position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "CALIBO, JESSA KRISA ESMALA",           branch: "One Ayala Neo",         position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "DORADO, DANIELLA LABIANO",             branch: "One Ayala Neo",         position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "PELARCO, JONELYN DELGADO",             branch: "One Ayala Neo",         position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "TAPAYAN, JELLIE FARILLON",             branch: "One Ayala Neo",         position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "MACATANGAY, RODERICK BAUTISTA",        branch: "One Ayala Neo",         position: "COMPANY DRIVER",              role: "utility" },
+    { name: "LABARDA, DANICA ANN VICTORE",          branch: "One Ayala Neo",         position: "CUSTODIAN",                   role: "utility" },
+    { name: "AMORANTO, NICOLE ANN TENORIO",         branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "ARAGON, MAAN DENISSE MARTINEZ",        branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "AYSON, CHRISTIAN JAY PINEDA",          branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "COMBRAS, JENNIFER ILAGAN",             branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "COQUIA, JOHN RHEY ROGUEL",             branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "CRUZ, JOCELYN AYUSON",                 branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "JAMMANG, LYN SHERLY ALIMUDDIN",        branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "JOMADIAO, WILBERT ARETAÑO",            branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "JULHANI, SHARIKA MAGSAYSAY",           branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "MARAY, MARK ANTHONY SAMSON",           branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "MOHAMMAD, ALFATRA ASARAIN",            branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "OFQUERIA, VICKLYN ILLUT",              branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "POLO, MARY GRACE CARLOS",              branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "PORCALLA, PATRICK VAN LEEL",           branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "PRAN, JOVELYN JAMISOLA",               branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "TOLENTINO, ELIZABETH RAMOS",           branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "VARGAS, MARIVIC MIRANDA",              branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "VERDARA, DENNIS ANACION",              branch: "One Ayala Neo",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "RONQUILLO, PRINCESS DIANA RODIL",      branch: "One Ayala Neo",         position: "EXECUTIVE ASSISTANT",         role: "other" },
+    { name: "ESCUETA, DEAN MEGI ROVILLOS",          branch: "One Ayala Neo",         position: "HEAD DENTIST",                role: "branchhead" },
+    { name: "BRIAGAS, CARL KENRICK CELLO",          branch: "One Ayala Neo",         position: "MARKETING ASSOCIATE",         role: "other" },
+    { name: "CONCEPCION, JOHN REINZEL RONATO",      branch: "One Ayala Neo",         position: "MARKETING ASSOCIATE",         role: "other" },
+    { name: "ENRIQUEZ, GENEROSO MERCADO",           branch: "One Ayala Neo",         position: "MARKETING ASSOCIATE",         role: "other" },
+    { name: "DELA PENA, RAFAEL BALAJADIA",          branch: "One Ayala Neo",         position: "UTILITY",                     role: "utility" },
+    { name: "SANTOS, CLAREZ JOY CABAHUG",           branch: "One Ayala Neo",         position: "SR. DISTRICT MANAGER",        role: "districtmgr" },
+
+    // ------------------------------------------
+    // PARQAL
+    // ------------------------------------------
+    { name: "JUNIO, KATES NICOLE VIRAY",            branch: "Parqal",                position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "RANIDO, SHELAMAE ALCANTARA",           branch: "Parqal",                position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "SEGUENZA, JOANNE GERARDINE SARILLA",   branch: "Parqal",                position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "TIMKANG, LIZETTE REYES",               branch: "Parqal",                position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "ALFARO, RONETH CUSTODIO",              branch: "Parqal",                position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "GERO, WULILDA BALASBAS",               branch: "Parqal",                position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "LANUZGA, GWYNETH ANN LUMBANG",         branch: "Parqal",                position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "MAGBANUA, RODEL LATOJA",               branch: "Parqal",                position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "REPARBOR, RYAN FELIZARIO",             branch: "Parqal",                position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "SUGUITAN, MARY LEIGH LOPEZ",           branch: "Parqal",                position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "VERGARA, BEVERLY ESPINO",              branch: "Parqal",                position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "DUNGCA, ROMEO JUNIOR GRANADOS",        branch: "Parqal",                position: "HEAD DENTIST",                role: "branchhead" },
+    { name: "AGUINALDO, LYCA FIGUEROA",             branch: "Parqal",                position: "DISTRICT MANAGER",            role: "districtmgr" },
+
+    // ------------------------------------------
+    // SHAW
+    // ------------------------------------------
+    { name: "BALANTIN, JEZREEL TARNATE",            branch: "Shaw",                  position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "CORDERO, JONAMEI CONDE",               branch: "Shaw",                  position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "TRIAS, MARIONE KAREN SAUCO",           branch: "Shaw",                  position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "CASTAÑEDA, CLAUDINE IANAH ROMERO",     branch: "Shaw",                  position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "DIMACALI, CHARISSE FERNANDO",          branch: "Shaw",                  position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "BANGUIH, SOFIA MOCADDAM",              branch: "Shaw",                  position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "DELA PENA, ARCHET N/A",                branch: "Shaw",                  position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "GUILLERGAN, HAZEL ANNE COOLEEN HABLADO", branch: "Shaw",                position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "GUTIERREZ, ANGELICA DORMIENDO",        branch: "Shaw",                  position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "GADDI, FRANCIS RANZELLE DELOS REYES",  branch: "Shaw",                  position: "HEAD DENTIST",                role: "branchhead" },
+    { name: "SANTOS, CLAREZ JOY CABAHUG",           branch: "Shaw",                  position: "SR. DISTRICT MANAGER",        role: "districtmgr" },
+
+    // ------------------------------------------
+    // SM FAIRVIEW
+    // ------------------------------------------
+    { name: "BASILAN, ARVIN MONLEON",               branch: "SM Fairview",           position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "CLAUDIO, RITCHELLE JOANNE TOLOSA",     branch: "SM Fairview",           position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "GODOY, GLESIRHYL PENTINIO",            branch: "SM Fairview",           position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "NEE-ESTUYE, MARISSA CABRERA",          branch: "SM Fairview",           position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "TORRES, JR., CLIYD RODERICK AGUIRRE",   branch: "SM Fairview",           position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "JAVIER, JOHN BERCILLA",                branch: "SM Fairview",           position: "ASSOCIATE DENTIST/ PART TIME", role: "dentist" },
+    { name: "ESTANISLAO, ZHARINA LUANGCO",          branch: "SM Fairview",           position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "VALES, NIÑA AIRA MARIE SANTIAGO",       branch: "SM Fairview",           position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "QUINTOS, ANGIE BANTILAN",              branch: "SM Fairview",           position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "RONDINA, CHARYN SOLLANO",              branch: "SM Fairview",           position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "TRASMAN̈O, ANNABEL TUMANENG",           branch: "SM Fairview",           position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "PUAZO, ARABELLA NICOLE LABRADOR",      branch: "SM Fairview",           position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "PAMINTUAN, JENKINS BABAC",             branch: "SM Fairview",           position: "HEAD DENTIST",                role: "branchhead" },
+    { name: "SANTOS, CLAREZ JOY CABAHUG",           branch: "SM Fairview",           position: "SR. DISTRICT MANAGER",        role: "districtmgr" },
+
+    // ------------------------------------------
+    // SM NORTH DENTALIS
+    // ------------------------------------------
+    { name: "MONTEALEGRE, LHENERY CASTILLO",        branch: "SM North Dentalis",     position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "MARCOS, JANE AUDREY LOPIDO",           branch: "SM North Dentalis",     position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+
+    // ------------------------------------------
+    // ST. LUKES BGC
+    // ------------------------------------------
+    { name: "DOMINGUEZ, IMEEH JOYCE MORANA",        branch: "St. Lukes BGC",         position: "CLIENT RELATION SPECIALIST",  role: "crs" },
+    { name: "DE VERA, APRIL JOY ORTIZ",             branch: "St. Lukes BGC",         position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+
+    // ------------------------------------------
+    // STA LUCIA
+    // ------------------------------------------
+    { name: "DE CASTRO, RACIEL ALVAREZ",            branch: "Sta Lucia",             position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "LAGUARDIA, HAROLD DAULAT",             branch: "Sta Lucia",             position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "LASAM, CERRE KYLNE PAGULAYAN",         branch: "Sta Lucia",             position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "LAGO-BELVEZ, VERONICA TOLENTINO",      branch: "Sta Lucia",             position: "HEAD DENTIST",                role: "branchhead" },
+    { name: "SANGGA, DIONA FE PANLAAN",             branch: "Sta Lucia",             position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "TESALONA, KYLA KATE BAGUIO",           branch: "Sta Lucia",             position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "BELLEN, REA ROSE VICENTE",             branch: "Sta Lucia",             position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "FLANDEZ, GELLY GASPAN",                branch: "Sta Lucia",             position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "MENDOZA, WILFREDO APOSTOL",            branch: "Sta Lucia",             position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "SANTOS, CLAREZ JOY CABAHUG",           branch: "Sta Lucia",             position: "SR. DISTRICT MANAGER",        role: "districtmgr" },
+
+    // ------------------------------------------
+    // WINFORD MANILA
+    // ------------------------------------------
+    { name: "ARGETE, KENNY JOHN PARAS",             branch: "Winford Manila",        position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "CARAOS, JOSE LORENZO MENDIOLA",        branch: "Winford Manila",        position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "ROMAN, RALPH ADRIAN REYES",            branch: "Winford Manila",        position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "ZABALA, ROAN PATRICE DE GUZMAN",       branch: "Winford Manila",        position: "ASSOCIATE DENTIST",           role: "dentist" },
+    { name: "LUYAHAN, SHAMEZ LYN REYES",            branch: "Winford Manila",        position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "PATALINGHOG, JOSIE ROSE CAROD",        branch: "Winford Manila",        position: "CLINIC RELATIONS SPECIALIST", role: "crs" },
+    { name: "DE LARA, TRACEY LIANNE CIPRIANO",      branch: "Winford Manila",        position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "RAFAEL, MARIA ANGELA SOLIMAN",         branch: "Winford Manila",        position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "TALENTO, JEMELINE GALLARDO",           branch: "Winford Manila",        position: "DENTAL SUPPORT EXPERT",       role: "dse" },
+    { name: "UNTIVERO, MARRI FRENCHIZKA LOLENG",    branch: "Winford Manila",        position: "HEAD DENTIST",                role: "branchhead" },
+    { name: "AGUINALDO, LYCA FIGUEROA",             branch: "Winford Manila",        position: "DISTRICT MANAGER",            role: "districtmgr" }
+  ];
+
+  function setDefaultDate() {
+    var dateField = document.getElementById('dateSubmitted');
+    if (dateField) {
+      var today = new Date();
+      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var formatted = months[today.getMonth()] + ' ' + today.getDate() + ', ' + today.getFullYear();
+      dateField.value = formatted;
+      
+      var yyyy = today.getFullYear();
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
+      var dd = String(today.getDate()).padStart(2, '0');
+      dateField.dataset.iso = yyyy + '-' + mm + '-' + dd;
+    }
   }
-}
   setDefaultDate();
 
-  function showRole(value){
-    document.querySelectorAll('.role-section').forEach(function(sec){
+  function showRole(value) {
+    document.querySelectorAll('.role-section').forEach(function(sec) {
       sec.classList.toggle('active', sec.getAttribute('data-role') === value);
     });
     var placeholder = document.getElementById('placeholder');
     placeholder.classList.toggle('active', !value);
   }
 
-  function onRoleOrBranchChange(){
+  function onRoleOrBranchChange() {
     var branch = document.getElementById('branch').value;
     var role = document.getElementById('role').value;
     showRole(role);
     populateEmployees(branch, role);
   }
 
-  function populateEmployees(branch, role){
+  function populateEmployees(branch, role) {
     var sel = document.getElementById('employee');
     sel.innerHTML = '';
 
-    if(!branch || !role){
+    if (!branch || !role) {
       var opt = document.createElement('option');
       opt.value = '';
       opt.textContent = 'Select branch and position first…';
@@ -770,20 +1173,20 @@
       return;
     }
 
-    var matches = EMPLOYEES.filter(function(e){
+    var matches = EMPLOYEES.filter(function(e) {
       return e.branch === branch && e.role === role;
     });
 
     var placeholderOpt = document.createElement('option');
     placeholderOpt.value = '';
-    if(matches.length === 0){
+    if (matches.length === 0) {
       placeholderOpt.textContent = 'No matching employee found for this branch/position';
     } else {
       placeholderOpt.textContent = 'Select employee… (' + matches.length + ' found)';
     }
     sel.appendChild(placeholderOpt);
 
-    matches.forEach(function(e){
+    matches.forEach(function(e) {
       var opt = document.createElement('option');
       opt.value = e.name;
       opt.textContent = e.name + ' — ' + e.position;
@@ -793,10 +1196,10 @@
     sel.disabled = false;
   }
 
-  // Inject the 1-5 rating control into every question row
-  (function buildRatingControls(){
-    document.querySelectorAll('.q-row').forEach(function(row, idx){
-      if(row.dataset.built) return;
+  // Inject 1-5 rating controls dynamically
+  (function buildRatingControls() {
+    document.querySelectorAll('.q-row').forEach(function(row, idx) {
+      if (row.dataset.built) return;
       row.dataset.built = "true";
       var wrap = document.createElement('div');
       wrap.className = 'rate';
@@ -807,7 +1210,8 @@
       var name = scope + '_q' + qNum;
       row.dataset.scope = scope;
       row.dataset.qnum = qNum;
-      for(var i=1;i<=5;i++){
+      
+      for (var i = 1; i <= 5; i++) {
         var id = name + '_' + i;
         var input = document.createElement('input');
         input.type = 'radio'; input.name = name; input.id = id; input.value = i;
@@ -821,63 +1225,64 @@
     });
   })();
 
-  function getChecked(name){
+  function getChecked(name) {
     var el = document.querySelector('input[name="' + name + '"]:checked');
     return el ? parseInt(el.value, 10) : null;
   }
 
-  function collectRoleAnswers(scope){
+  function collectRoleAnswers(scope) {
     var answers = {};
-    for(var i = 1; i <= 10; i++){
+    for (var i = 1; i <= 10; i++) {
       answers['q' + i] = getChecked(scope + '_q' + i);
     }
     return answers;
   }
-  function resetFormAfterSubmit(){
-  var roleSelect = document.getElementById('role');
-  roleSelect.value = '';
-  showRole('');
 
-  var branch = document.getElementById('branch').value;
-  populateEmployees(branch, '');
+  function resetFormAfterSubmit() {
+    var roleSelect = document.getElementById('role');
+    roleSelect.value = '';
+    showRole('');
 
-  document.querySelectorAll('.rate input[type="radio"]:checked').forEach(function(input){
-    input.checked = false;
-  });
+    var branch = document.getElementById('branch').value;
+    populateEmployees(branch, '');
 
-  document.querySelectorAll('textarea').forEach(function(ta){
-    ta.value = '';
-  });
+    document.querySelectorAll('.rate input[type="radio"]:checked').forEach(function(input) {
+      input.checked = false;
+    });
 
-  var banner = document.getElementById('successBanner');
-  banner.classList.add('active');
-  setTimeout(function(){
-    banner.classList.remove('active');
-  }, 6000);
+    document.querySelectorAll('textarea').forEach(function(ta) {
+      ta.value = '';
+    });
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+    var banner = document.getElementById('successBanner');
+    banner.classList.add('active');
+    setTimeout(function() {
+      banner.classList.remove('active');
+    }, 6000);
 
-  function submitEvaluation(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitEvaluation() {
     var branch = document.getElementById('branch').value;
     var idnum = document.getElementById('idnum').value.trim();
     var dateSubmitted = document.getElementById('dateSubmitted').value;
     var role = document.getElementById('role').value;
     var employee = document.getElementById('employee').value;
 
-    if(!branch || !idnum || !dateSubmitted || !role || !employee){
+    if (!branch || !idnum || !dateSubmitted || !role || !employee) {
       alert('Please complete branch, evaluator ID number, date submitted, position, and employee before submitting.');
       return;
     }
 
-    var employeeRecord = EMPLOYEES.find(function(e){ return e.name === employee && e.branch === branch; }) || {};
+    var employeeRecord = EMPLOYEES.find(function(e) { return e.name === employee && e.branch === branch; }) || {};
 
     var roleAnswers = role === 'other' ? {} : collectRoleAnswers(role);
     var roleSection = document.querySelector('.role-section[data-role="' + role + '"]');
     var roleComment = roleSection ? (roleSection.querySelector('textarea') || {}).value || '' : '';
 
     var generalAnswers = {};
-    for(var i = 1; i <= 5; i++){
+    for (var i = 1; i <= 5; i++) {
       generalAnswers['q' + i] = getChecked('general_q' + i);
     }
     var generalComment = (document.querySelector('.gen-card textarea') || {}).value || '';
@@ -896,7 +1301,7 @@
       submittedAt: new Date().toISOString()
     };
 
-    if(WEBHOOK_URL.indexOf('PASTE_YOUR_MAKE_WEBHOOK_URL_HERE') !== -1){
+    if (WEBHOOK_URL.indexOf('PASTE_YOUR_MAKE_WEBHOOK_URL_HERE') !== -1) {
       alert('Webhook not configured yet. Paste your Make.com webhook URL into WEBHOOK_URL in the code before going live.\n\nPayload that would have been sent:\n' + JSON.stringify(payload, null, 2));
       return;
     }
@@ -906,18 +1311,17 @@
     btn.textContent = 'Submitting…';
 
     fetch(WEBHOOK_URL, {
-     method: 'POST',
-  mode: 'no-cors',
-  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-  body: JSON.stringify(payload)
-})
-.then(function(){
-  // no-cors means we can't read the response, so just assume success
-  btn.textContent = 'Submit Evaluation →';
-  btn.disabled = false;
-  resetFormAfterSubmit();
-})
-    .catch(function(err){
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    })
+    .then(function() {
+      btn.textContent = 'Submit Evaluation →';
+      btn.disabled = false;
+      resetFormAfterSubmit();
+    })
+    .catch(function(err) {
       alert('Something went wrong sending this evaluation. Please try again.\n(' + err.message + ')');
       btn.textContent = 'Submit Evaluation →';
       btn.disabled = false;
